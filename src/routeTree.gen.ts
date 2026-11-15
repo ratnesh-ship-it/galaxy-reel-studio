@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as BrandsRouteImport } from './routes/brands'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as CreatorsRouteImport } from './routes/creators'
+import { Route as JoinCreatorRouteImport } from './routes/join-creator'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ShowcaseRouteImport } from './routes/showcase'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsRoute = BrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorsRoute = CreatorsRouteImport.update({
+  id: '/creators',
+  path: '/creators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinCreatorRoute = JoinCreatorRouteImport.update({
+  id: '/join-creator',
+  path: '/join-creator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShowcaseRoute = ShowcaseRouteImport.update({
+  id: '/showcase',
+  path: '/showcase',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/brands': typeof BrandsRoute
+  '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
+  '/join-creator': typeof JoinCreatorRoute
+  '/login': typeof LoginRoute
+  '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/brands': typeof BrandsRoute
+  '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
+  '/join-creator': typeof JoinCreatorRoute
+  '/login': typeof LoginRoute
+  '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/brands': typeof BrandsRoute
+  '/community': typeof CommunityRoute
+  '/creators': typeof CreatorsRoute
+  '/join-creator': typeof JoinCreatorRoute
+  '/login': typeof LoginRoute
+  '/showcase': typeof ShowcaseRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/brands'
+    | '/community'
+    | '/creators'
+    | '/join-creator'
+    | '/login'
+    | '/showcase'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/brands'
+    | '/community'
+    | '/creators'
+    | '/join-creator'
+    | '/login'
+    | '/showcase'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/brands'
+    | '/community'
+    | '/creators'
+    | '/join-creator'
+    | '/login'
+    | '/showcase'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BrandsRoute: typeof BrandsRoute
+  CommunityRoute: typeof CommunityRoute
+  CreatorsRoute: typeof CreatorsRoute
+  JoinCreatorRoute: typeof JoinCreatorRoute
+  LoginRoute: typeof LoginRoute
+  ShowcaseRoute: typeof ShowcaseRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands': {
+      id: '/brands'
+      path: '/brands'
+      fullPath: '/brands'
+      preLoaderRoute: typeof BrandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creators': {
+      id: '/creators'
+      path: '/creators'
+      fullPath: '/creators'
+      preLoaderRoute: typeof CreatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join-creator': {
+      id: '/join-creator'
+      path: '/join-creator'
+      fullPath: '/join-creator'
+      preLoaderRoute: typeof JoinCreatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/showcase': {
+      id: '/showcase'
+      path: '/showcase'
+      fullPath: '/showcase'
+      preLoaderRoute: typeof ShowcaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BrandsRoute: BrandsRoute,
+  CommunityRoute: CommunityRoute,
+  CreatorsRoute: CreatorsRoute,
+  JoinCreatorRoute: JoinCreatorRoute,
+  LoginRoute: LoginRoute,
+  ShowcaseRoute: ShowcaseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
