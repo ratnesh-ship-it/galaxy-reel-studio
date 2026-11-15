@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CreatorsRouteImport } from './routes/creators'
-import { Route as JoinCreatorRouteImport } from './routes/join-creator'
-import { Route as LoginRouteImport } from './routes/login'
+import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -43,14 +48,9 @@ const CreatorsRoute = CreatorsRouteImport.update({
   path: '/creators',
   getParentRoute: () => rootRouteImport,
 } as any)
-const JoinCreatorRoute = JoinCreatorRouteImport.update({
-  id: '/join-creator',
-  path: '/join-creator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShowcaseRoute = ShowcaseRouteImport.update({
@@ -62,32 +62,32 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
-  '/join-creator': typeof JoinCreatorRoute
-  '/login': typeof LoginRoute
+  '/discover': typeof DiscoverRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
-  '/join-creator': typeof JoinCreatorRoute
-  '/login': typeof LoginRoute
+  '/discover': typeof DiscoverRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
-  '/join-creator': typeof JoinCreatorRoute
-  '/login': typeof LoginRoute
+  '/discover': typeof DiscoverRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRouteTypes {
@@ -95,42 +95,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
-    | '/join-creator'
-    | '/login'
+    | '/discover'
     | '/showcase'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
-    | '/join-creator'
-    | '/login'
+    | '/discover'
     | '/showcase'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
-    | '/join-creator'
-    | '/login'
+    | '/discover'
     | '/showcase'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   BrandsRoute: typeof BrandsRoute
   CommunityRoute: typeof CommunityRoute
   CreatorsRoute: typeof CreatorsRoute
-  JoinCreatorRoute: typeof JoinCreatorRoute
-  LoginRoute: typeof LoginRoute
+  DiscoverRoute: typeof DiscoverRoute
   ShowcaseRoute: typeof ShowcaseRoute
 }
 
@@ -148,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -171,18 +178,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/join-creator': {
-      id: '/join-creator'
-      path: '/join-creator'
-      fullPath: '/join-creator'
-      preLoaderRoute: typeof JoinCreatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/showcase': {
@@ -198,11 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   BrandsRoute: BrandsRoute,
   CommunityRoute: CommunityRoute,
   CreatorsRoute: CreatorsRoute,
-  JoinCreatorRoute: JoinCreatorRoute,
-  LoginRoute: LoginRoute,
+  DiscoverRoute: DiscoverRoute,
   ShowcaseRoute: ShowcaseRoute,
 }
 export const routeTree = rootRouteImport

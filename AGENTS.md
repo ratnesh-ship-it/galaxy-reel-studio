@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## JOMOVERSE structure
+- Home sections live in `src/components/site/Sections.tsx` and are reused by inner routes; keep copy there, not duplicated per route.
+- 3D (starfield, astronaut, globe) lives in `src/components/three/*` and is only loaded via `React.lazy` behind `<ClientOnly>` — three.js must never enter the SSR graph.
+- Showcase tiles come from `src/data/showcase.ts`; form option lists from `src/config/forms.ts` so non-devs can edit them.
+- Registrations insert directly from the browser into insert-only tables (anon INSERT policy, no SELECT) — no server function needed.

@@ -1,95 +1,166 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X, Orbit } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { ClientOnly } from "@tanstack/react-router";
+import { Menu, X, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Container, btn, EASE } from "./ui";
 
-const nav = [
-  { to: "/creators", label: "Discover Creators" },
+const Starfield = lazy(() => import("@/components/three/Starfield"));
+
+export const nav = [
+  { to: "/", label: "Home" },
+  { to: "/discover", label: "Discover Creators" },
   { to: "/showcase", label: "AI Films & Ads" },
   { to: "/brands", label: "For Brands" },
-  { to: "/join-creator", label: "For Creators" },
+  { to: "/creators", label: "For Creators" },
   { to: "/community", label: "Community" },
-  { to: "/about", label: "About" },
+  { to: "/about", label: "About Us" },
 ] as const;
 
-export function Logo() {
+export function OrbitMark({ className = "h-6 w-6" }: { className?: string }) {
   return (
-    <Link to="/" className="flex items-center gap-2 font-display text-xl font-extrabold tracking-tight">
-      <Orbit className="h-6 w-6 text-cyan" />
-      <span>JOMO<span className="text-cosmic">VERSE</span></span>
+    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>
+      <circle cx="16" cy="16" r="5" fill="currentColor" />
+      <ellipse cx="16" cy="16" rx="14" ry="6" stroke="currentColor" strokeWidth="1.2" transform="rotate(-25 16 16)" />
+      <circle cx="28" cy="10.5" r="1.6" className="fill-primary" />
+    </svg>
+  );
+}
+
+export function Wordmark() {
+  return (
+    <Link to="/" className="flex items-center gap-2.5" aria-label="JOMOVERSE home">
+      <OrbitMark />
+      <span className="text-[13px] font-semibold tracking-[0.2em]">JOMOVERSE</span>
     </Link>
   );
 }
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 24);
+    on(); window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto mt-3 flex max-w-7xl items-center justify-between rounded-full glass px-5 py-3 mx-3 md:mx-auto">
-        <Logo />
-        <nav className="hidden items-center gap-6 lg:flex">
+    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${scrolled ? "border-b border-hairline bg-background/70 backdrop-blur-xl" : "border-b border-transparent"}`}>
+      <Container className="flex h-[72px] items-center justify-between">
+        <Wordmark />
+        <nav className="hidden items-center gap-7 xl:flex" aria-label="Main">
           {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-              {n.label}
-            </Link>
+            <Link key={n.to} to={n.to} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground" activeOptions={{ exact: true }} activeProps={{ className: "!text-foreground" }}>{n.label}</Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 lg:flex">
-          <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground">Login</Link>
-          <Link to="/join-creator" className="rounded-full bg-gold px-4 py-2 text-sm font-semibold text-primary-foreground shadow-gold">Start Creating</Link>
+        <div className="hidden items-center gap-6 xl:flex">
+          <Link to="/auth" className="text-[13px] text-muted-foreground hover:text-foreground">Login</Link>
+          <Link to="/auth" search={{ mode: "signup" }} className={`${btn()} !px-4 !py-2 !text-[13px]`}>Sign Up</Link>
         </div>
-        <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X /> : <Menu />}</button>
-      </div>
-      {open && (
-        <div className="mx-3 mt-2 flex flex-col gap-3 rounded-2xl glass p-5 lg:hidden">
-          {nav.map((n) => <Link key={n.to} to={n.to} onClick={() => setOpen(false)}>{n.label}</Link>)}
-          <Link to="/login" onClick={() => setOpen(false)}>Login / Sign Up</Link>
-        </div>
-      )}
+        <button className="xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-6 w-6" strokeWidth={1.5} /></button>
+      </Container>
+      <AnimatePresence>
+        {open && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: EASE }} className="fixed inset-0 z-50 flex flex-col bg-background/90 backdrop-blur-sm">
+            <Container className="flex h-[72px] items-center justify-between">
+              <Wordmark />
+              <button onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-6 w-6" strokeWidth={1.5} /></button>
+            </Container>
+            <Container className="flex flex-1 flex-col justify-center gap-3">
+              {[...nav, { to: "/auth" as const, label: "Login / Sign Up" }].map((n, i) => (
+                <motion.div key={n.to + n.label} initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.05 * i, duration: 0.6, ease: EASE }}>
+                  <Link to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl">{n.label}</Link>
+                </motion.div>
+              ))}
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
 
 export function SiteFooter() {
+  const cols = [
+    { h: "Platform", l: [["/discover", "Discover Creators"], ["/showcase", "AI Films & Ads"], ["/community", "Community"]] },
+    { h: "Join", l: [["/brands", "For Brands"], ["/creators", "For Creators"], ["/auth", "Login / Sign Up"]] },
+    { h: "Company", l: [["/about", "About Us"], ["/about", "Contact"]] },
+  ] as const;
   return (
-    <footer className="border-t border-border mt-24">
-      <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-3">
-        <div>
-          <Logo />
-          <p className="mt-3 text-sm text-muted-foreground">Where Brands Meet AI Creators. The global creative marketplace for the AI creator economy.</p>
+    <footer className="relative border-t border-hairline pt-20">
+      <Container>
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <p className="font-display text-3xl">Where Brands Meet <em>AI Creators.</em></p>
+            <p className="mt-4 max-w-sm text-muted-foreground">Connecting brands with the next generation of AI-powered creative talent.</p>
+          </div>
+          {cols.map((c) => (
+            <div key={c.h} className="md:col-span-2">
+              <p className="eyebrow mb-5">{c.h}</p>
+              <ul className="space-y-3 text-[15px]">
+                {c.l.map(([to, label]) => <li key={label}><Link to={to} className="text-foreground/80 hover:text-foreground">{label}</Link></li>)}
+              </ul>
+            </div>
+          ))}
+          <div className="flex gap-4 md:col-span-1 md:justify-end">
+            {[Instagram, Linkedin, Youtube].map((I, i) => <a key={i} href="#" aria-label="Social link" className="text-muted-foreground hover:text-foreground"><I className="h-5 w-5" strokeWidth={1.5} /></a>)}
+            <a href="#" aria-label="X" className="text-muted-foreground hover:text-foreground"><svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4l16 16M20 4L4 20" /></svg></a>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
-          {nav.map((n) => <Link key={n.to} to={n.to} className="hover:text-foreground">{n.label}</Link>)}
-        </div>
-        <p className="text-sm text-muted-foreground md:text-right">© {new Date().getFullYear()} JOMOVERSE. Create. Collaborate. Get Discovered. Get Hired.</p>
-      </div>
+      </Container>
+      <p className="font-display text-outline mt-16 select-none text-center text-[19vw] leading-[0.8]" aria-hidden>JOMOVERSE</p>
+      <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-xs text-muted-foreground md:flex-row md:justify-between">
+        <span>© 2026 JOMOVERSE. All rights reserved.</span>
+        <span>Astronaut 3D model by Poly by Google, licensed CC-BY 3.0.</span>
+      </Container>
     </footer>
   );
 }
 
-export function PageHero({ eyebrow, title, sub, image }: { eyebrow: string; title: React.ReactNode; sub: string; image: string }) {
+function Cursor() {
+  const dot = useRef<HTMLDivElement>(null), ring = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    document.documentElement.classList.add("has-cursor");
+    let x = 0, y = 0, rx = 0, ry = 0, raf = 0;
+    const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY; if (dot.current) dot.current.style.transform = `translate(${x - 3}px, ${y - 3}px)`; };
+    const loop = () => { rx += (x - rx) * 0.15; ry += (y - ry) * 0.15; if (ring.current) ring.current.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`; raf = requestAnimationFrame(loop); };
+    window.addEventListener("mousemove", move); loop();
+    return () => { window.removeEventListener("mousemove", move); cancelAnimationFrame(raf); document.documentElement.classList.remove("has-cursor"); };
+  }, []);
   return (
-    <section className="relative flex min-h-[60vh] items-end overflow-hidden pb-16 pt-36">
-      <img src={image} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-60 animate-drift" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/30 via-background/60 to-background" />
-      <div className="mx-auto w-full max-w-7xl px-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan">{eyebrow}</p>
-        <h1 className="mt-4 max-w-4xl text-5xl font-extrabold leading-[1.02] md:text-7xl">{title}</h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">{sub}</p>
-      </div>
-    </section>
+    <div className="pointer-events-none fixed left-0 top-0 z-[100] hidden [@media(pointer:fine)]:block" aria-hidden>
+      <div ref={dot} className="absolute h-1.5 w-1.5 rounded-full bg-primary" />
+      <div ref={ring} className="absolute h-8 w-8 rounded-full border border-primary/50" />
+    </div>
   );
 }
 
-export function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <section className={`mx-auto max-w-7xl px-6 py-20 ${className}`}>{children}</section>;
+function SmoothScroll() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0; let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
+    import("lenis").then(({ default: Lenis }) => {
+      lenis = new Lenis({ lerp: 0.1 });
+      const loop = (t: number) => { lenis?.raf(t); raf = requestAnimationFrame(loop); };
+      raf = requestAnimationFrame(loop);
+    });
+    return () => { cancelAnimationFrame(raf); lenis?.destroy(); };
+  }, []);
+  return null;
 }
 
-export function CheckList({ items }: { items: string[] }) {
+export function SpaceBackdrop() {
   return (
-    <ul className="space-y-3">
-      {items.map((i) => (
-        <li key={i} className="flex gap-3"><span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-cosmic shadow-glow" />{i}</li>
-      ))}
-    </ul>
+    <>
+      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden>
+        <ClientOnly fallback={null}>
+          <Suspense fallback={null}><Starfield /></Suspense>
+        </ClientOnly>
+      </div>
+      <div className="pointer-events-none fixed inset-0 z-40 vignette" aria-hidden />
+      <div className="pointer-events-none fixed inset-0 z-[61] grain" aria-hidden />
+      <ClientOnly fallback={null}><Cursor /><SmoothScroll /></ClientOnly>
+    </>
   );
 }
