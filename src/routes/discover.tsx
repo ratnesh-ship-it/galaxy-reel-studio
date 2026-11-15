@@ -13,7 +13,7 @@ function Filter({ label, options, value, onChange }: { label: string; options: s
   return (
     <label className="block">
       <span className="eyebrow">{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none focus:border-primary [&>option]:bg-card">
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none focus:border-brand-teal-bright [&>option]:bg-card">
         <option value="">All</option>{options.map((o) => <option key={o}>{o}</option>)}
       </select>
     </label>
@@ -29,7 +29,7 @@ function Page() {
         <div className="grid gap-8 border-y border-hairline py-8 md:grid-cols-3">
           <Filter label="Speciality" options={specialities} value={s} onChange={setS} />
           <Filter label="Experience" options={experienceLevels} value={e} onChange={setE} />
-          <label className="block"><span className="eyebrow">Tools</span><input value={t} onChange={(ev) => setT(ev.target.value)} placeholder="e.g. Runway, Sora…" className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none placeholder:text-muted-foreground/50 focus:border-primary" /></label>
+          <label className="block"><span className="eyebrow">Tools</span><input value={t} onChange={(ev) => setT(ev.target.value)} placeholder="e.g. Runway, Sora…" className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none placeholder:text-muted-foreground/50 focus:border-brand-teal-bright" /></label>
         </div>
         <div className="mt-12 grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 8 }).map((_, i) => (

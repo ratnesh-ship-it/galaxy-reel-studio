@@ -3,7 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
-import { OrbitMark } from "@/components/site/Layout";
+import { BrandLogo } from "@/components/site/Layout";
 import { btn } from "@/components/site/ui";
 
 export const Route = createFileRoute("/auth")({
@@ -42,12 +42,12 @@ function Page() {
     if (r.error) setMsg({ t: "err", m: "Google sign-in failed. Please try again." });
     else if (!r.redirected) nav({ to: "/" });
   };
-  const input = "w-full border-0 border-b border-input bg-transparent pb-2 pt-1 text-[17px] outline-none placeholder:text-muted-foreground focus:border-primary";
+  const input = "w-full border-0 border-b border-input bg-transparent pb-2 pt-1 text-[17px] outline-none placeholder:text-muted-foreground focus:border-brand-teal-bright";
 
   return (
     <section className="flex min-h-[100svh] items-center justify-center px-6 pb-16 pt-28">
       <div className="w-full max-w-[440px] border border-hairline bg-card/80 p-8 backdrop-blur-md md:p-10">
-        <OrbitMark className="h-8 w-8" />
+        <BrandLogo className="h-7 w-auto max-w-full" />
         <h1 className="font-display mt-6 text-5xl">{signup ? <>Join the <em>JOMOVERSE.</em></> : <>Welcome <em>back.</em></>}</h1>
         {signup && (
           <div role="radiogroup" aria-label="I am" className="mt-8 grid grid-cols-2 border border-input">
@@ -62,7 +62,7 @@ function Page() {
         <form onSubmit={submit} noValidate className="space-y-6">
           <input type="email" autoComplete="email" placeholder="Email" aria-label="Email" value={email} onChange={(e) => setEmail(e.target.value)} className={input} />
           <input type="password" autoComplete={signup ? "new-password" : "current-password"} placeholder="Password" aria-label="Password" value={pw} onChange={(e) => setPw(e.target.value)} className={input} />
-          {msg && <p className={`text-sm ${msg.t === "err" ? "text-destructive" : "text-primary"}`}>{msg.m}</p>}
+          {msg && <p className={`text-sm ${msg.t === "err" ? "text-destructive" : "text-brand-teal-bright"}`}>{msg.m}</p>}
           <button disabled={busy} className={`${btn()} w-full`}>{busy ? "Please wait…" : signup ? "Sign Up" : "Login"}</button>
         </form>
         <p className="mt-8 text-center text-sm text-muted-foreground">

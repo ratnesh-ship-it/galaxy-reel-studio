@@ -3,6 +3,7 @@ import { useGLTF, Environment, Lightformer } from "@react-three/drei";
 import { Suspense, useRef, type MutableRefObject } from "react";
 import * as THREE from "three";
 import asset from "@/assets/Astronaut.glb.asset.json";
+import { sceneColor } from "./sceneTheme";
 
 function Model({ scrollRef }: { scrollRef: MutableRefObject<number> }) {
   const { scene } = useGLTF(asset.url);
@@ -21,16 +22,17 @@ function Model({ scrollRef }: { scrollRef: MutableRefObject<number> }) {
 }
 
 export default function Astronaut({ scrollRef }: { scrollRef: MutableRefObject<number> }) {
+  const starlight = sceneColor("--scene-starlight"), bright = sceneColor("--brand-teal-bright"), teal = sceneColor("--brand-teal");
   return (
     <Canvas camera={{ position: [0, 0.3, 4.2], fov: 35 }} dpr={[1, 1.75]} gl={{ alpha: true }}>
       <ambientLight intensity={0.25} />
-      <directionalLight position={[3, 2, 2]} intensity={1.6} color="#EDEAE3" />
-      <pointLight position={[-2.5, 0.5, 1.5]} intensity={3} color="#D4FF3A" distance={8} />
-      <pointLight position={[2, -1, -1.5]} intensity={4} color="#6B5CFF" distance={8} />
+      <directionalLight position={[3, 2, 2]} intensity={1.6} color={starlight} />
+      <pointLight position={[-2.5, 0.5, 1.5]} intensity={3} color={bright} distance={8} />
+      <pointLight position={[2, -1, -1.5]} intensity={4} color={teal} distance={8} />
       <Environment resolution={64}>
-        <Lightformer intensity={1.2} position={[0, 4, 2]} scale={[6, 6, 1]} color="#EDEAE3" />
-        <Lightformer intensity={0.3} position={[-4, 0, 1]} rotation-y={Math.PI / 2} scale={[8, 1, 1]} color="#D4FF3A" />
-        <Lightformer intensity={0.8} position={[4, 0, 1]} rotation-y={-Math.PI / 2} scale={[8, 1, 1]} color="#6B5CFF" />
+        <Lightformer intensity={1.2} position={[0, 4, 2]} scale={[6, 6, 1]} color={starlight} />
+        <Lightformer intensity={0.3} position={[-4, 0, 1]} rotation-y={Math.PI / 2} scale={[8, 1, 1]} color={bright} />
+        <Lightformer intensity={0.8} position={[4, 0, 1]} rotation-y={-Math.PI / 2} scale={[8, 1, 1]} color={teal} />
       </Environment>
       <Suspense fallback={null}><Model scrollRef={scrollRef} /></Suspense>
     </Canvas>

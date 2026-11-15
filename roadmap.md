@@ -1,0 +1,3 @@
+- [x] Replace orbit marks with the uploaded logo and derive the favicon.
+- [x] Replace accent colours and scene lighting with the brand teal system.
+- [x] Verify desktop/mobile branding, form selection colours, and existing tests.

@@ -5,9 +5,8 @@ import { useState, type ReactNode, type InputHTMLAttributes } from "react";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { budgetRanges, createOptions, specialities, experienceLevels } from "@/config/forms";
-import { OrbitMark } from "./Layout";
 import { btn, EASE } from "./ui";
-import { X } from "lucide-react";
+import { X, CircleCheck } from "lucide-react";
 
 const opt = z.string().trim().max(300).optional().or(z.literal(""));
 const req = (m = "Required") => z.string().trim().min(1, m).max(200);
@@ -25,7 +24,7 @@ export const creatorSchema = z.object({
 function Field({ label, error, full, ...p }: { label: string; error?: string | undefined; full?: boolean } & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className={`group relative block pt-5 ${full ? "md:col-span-2" : ""}`}>
-      <input {...p} placeholder=" " className="peer w-full border-0 border-b border-input bg-transparent pb-2 pt-1 text-[17px] outline-none transition-colors focus:border-primary" />
+      <input {...p} placeholder=" " className="peer w-full border-0 border-b border-input bg-transparent pb-2 pt-1 text-[17px] outline-none transition-colors focus:border-brand-teal-bright" />
       <span className="pointer-events-none absolute left-0 top-6 text-[15px] text-muted-foreground transition-all duration-300 peer-focus:top-0 peer-focus:text-[11px] peer-focus:tracking-[0.15em] peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:tracking-[0.15em]">{label}</span>
       {error && <span className="mt-1 block text-xs text-destructive">{error}</span>}
     </label>
@@ -36,13 +35,13 @@ function Group({ label, children, full = true }: { label: string; children: Reac
   return <div className={`pt-5 ${full ? "md:col-span-2" : ""}`}><p className="eyebrow mb-3">{label}</p>{children}</div>;
 }
 
-const chip = (on: boolean) => `rounded-[3px] border px-3.5 py-2 text-sm transition-colors ${on ? "border-primary text-primary" : "border-input text-muted-foreground hover:text-foreground"}`;
+const chip = (on: boolean) => `rounded-[3px] border px-3.5 py-2 text-sm transition-colors ${on ? "border-primary bg-primary text-primary-foreground" : "border-input text-muted-foreground hover:border-brand-teal-bright hover:text-brand-teal-bright"}`;
 
 function Select({ value, onChange, options, label }: { value?: string | undefined; onChange: (v: string) => void; options: string[]; label: string }) {
   return (
     <label className="block pt-5">
       <span className="eyebrow">{label}</span>
-      <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 text-[17px] outline-none focus:border-primary [&>option]:bg-card">
+      <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 text-[17px] outline-none focus:border-brand-teal-bright [&>option]:bg-card">
         <option value="">Select…</option>
         {options.map((o) => <option key={o}>{o}</option>)}
       </select>
@@ -53,7 +52,7 @@ function Select({ value, onChange, options, label }: { value?: string | undefine
 export function Success({ onReset }: { onReset: () => void }) {
   return (
     <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: EASE }} className="flex flex-col items-start gap-6 py-16">
-      <OrbitMark className="h-12 w-12 text-foreground" />
+      <CircleCheck className="h-12 w-12 text-brand-teal-bright" strokeWidth={1.5} />
       <h3 className="font-display text-5xl md:text-6xl">Welcome to the <em>JOMOVERSE.</em></h3>
       <p className="max-w-md text-muted-foreground">We've received your registration and will be in touch.</p>
       <button onClick={onReset} className={btn("outline")}>Submit another</button>
@@ -101,7 +100,7 @@ function TagInput({ value, onChange }: { value: string[]; onChange: (v: string[]
   const [t, setT] = useState("");
   const add = () => { const v = t.trim(); if (v && !value.includes(v) && value.length < 20) onChange([...value, v]); setT(""); };
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-input pb-2 focus-within:border-primary">
+    <div className="flex flex-wrap items-center gap-2 border-b border-input pb-2 focus-within:border-brand-teal-bright">
       {value.map((v) => (
         <span key={v} className="inline-flex items-center gap-1 rounded-[3px] border border-input px-2 py-1 text-sm">{v}<button type="button" aria-label={`Remove ${v}`} onClick={() => onChange(value.filter((x) => x !== v))}><X className="h-3 w-3" /></button></span>
       ))}

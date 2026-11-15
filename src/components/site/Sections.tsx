@@ -3,7 +3,7 @@ import { ClientOnly } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { lazy, Suspense, useRef, useState, useEffect } from "react";
 import { ArrowRight, Play, X } from "lucide-react";
-import astronautCut from "@/assets/astronaut-cutout.png";
+import astronautCut from "@/assets/astronaut-teal.png";
 import filmFrame from "@/assets/tile-film.jpg";
 import { universe, showcase, showcaseCategories, type ShowcaseItem } from "@/data/showcase";
 import { Container, Label, Lines, Reveal, Section, btn, List, Marquee, EASE } from "./ui";
@@ -27,11 +27,11 @@ export function Hero() {
   return (
     <section ref={ref} className="relative flex min-h-[100svh] items-center overflow-hidden pt-[72px]">
       {/* Planet */}
-      <div className="pointer-events-none absolute -bottom-[45vw] -right-[25vw] h-[80vw] w-[80vw] rounded-full bg-background shadow-[inset_18px_14px_40px_-20px_var(--color-primary),0_0_80px_-30px_var(--color-primary)] md:-bottom-[38vw] md:h-[60vw] md:w-[60vw]" aria-hidden />
+      <div className="pointer-events-none absolute -bottom-[45vw] -right-[25vw] h-[80vw] w-[80vw] rounded-full bg-background planet-glow md:-bottom-[38vw] md:h-[60vw] md:w-[60vw]" aria-hidden />
       {/* Astronaut */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[55%]" aria-hidden>
         <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
-          <path d="M55 48 C 70 60, 85 40, 110 70" stroke="var(--color-primary)" strokeOpacity="0.5" strokeWidth="0.15" vectorEffect="non-scaling-stroke" />
+          <path d="M55 48 C 70 60, 85 40, 110 70" stroke="var(--brand-teal-bright)" strokeOpacity="0.25" strokeWidth="0.15" vectorEffect="non-scaling-stroke" />
         </svg>
         {desktop ? (
           <ClientOnly fallback={null}><Suspense fallback={null}><Astronaut3D scrollRef={progress} /></Suspense></ClientOnly>
@@ -45,7 +45,7 @@ export function Hero() {
           <Lines as="h1" className="text-[44px] sm:text-6xl md:text-[80px] lg:text-[96px]" lines={[
             <>Launch Your First <em>AI Film.</em></>,
             <>Your First <em>AI Ad.</em></>,
-            <span className="text-primary">Today.</span>,
+            <span className="text-brand-teal-bright">Today.</span>,
           ]} />
           <Reveal delay={0.35}>
             <p className="mt-8 max-w-[56ch] text-[18px] leading-relaxed text-muted-foreground">Discover talented AI Filmmakers, AI Creators and visual storytellers. Turn your ideas into extraordinary brand films, advertisements and creative campaigns.</p>
@@ -112,7 +112,7 @@ export function UniverseSection() {
             <article className="group relative aspect-[3/4] overflow-hidden">
               <img src={u.image} alt={`${u.title} — cinematic still`} loading="lazy" width={768} height={1024} className="film-still h-full w-full object-cover transition-all duration-700 ease-cine group-hover:scale-[1.03] group-hover:brightness-110 group-hover:saturate-[0.8]" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-              <span className="absolute left-6 top-6 text-xs font-medium text-primary">{u.n}</span>
+              <span className="absolute left-6 top-6 text-xs font-medium text-brand-teal-bright">{u.n}</span>
               <div className="absolute inset-x-6 bottom-6">
                 <h3 className="font-display text-3xl">{u.title}</h3>
                 <p className="mt-2 text-[15px] text-muted-foreground">{u.desc}</p>
@@ -138,14 +138,15 @@ export function ProcessSection() {
       <SectionHead n="03" label="Process" lines={["From Imagination", <em key="i">to Creation.</em>]} />
       <div className="relative mt-24">
         <svg className="absolute left-0 top-12 hidden h-24 w-full md:block" viewBox="0 0 1000 100" preserveAspectRatio="none" fill="none" aria-hidden>
-          <motion.path d="M0 60 C 250 -10, 500 120, 750 30 S 1000 50, 1000 50" stroke="var(--color-primary)" strokeOpacity="0.6" strokeWidth="1" vectorEffect="non-scaling-stroke" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2.2, ease: EASE }} />
+          <defs><linearGradient id="process-teal"><stop stopColor="var(--brand-teal)" /><stop offset="1" stopColor="var(--brand-teal-bright)" /></linearGradient></defs>
+          <motion.path d="M0 60 C 250 -10, 500 120, 750 30 S 1000 50, 1000 50" stroke="url(#process-teal)" strokeOpacity="0.6" strokeWidth="1" vectorEffect="non-scaling-stroke" initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2.2, ease: EASE }} />
         </svg>
         <div className="absolute bottom-0 left-[22px] top-0 w-px bg-hairline md:hidden" aria-hidden />
         <ol className="relative grid gap-14 md:grid-cols-4 md:gap-8">
           {steps.map(([n, t, d], i) => (
             <Reveal key={n} delay={i * 0.12}>
               <li className="pl-14 md:pl-0">
-                <span className="font-display text-outline block text-7xl md:text-[120px]">{n}</span>
+                <svg viewBox="0 0 180 125" className="h-[72px] w-[104px] md:h-[120px] md:w-[173px]" role="img" aria-label={n}><defs><linearGradient id={`step-teal-${n}`}><stop stopColor="var(--brand-teal)" /><stop offset="1" stopColor="var(--brand-teal-bright)" /></linearGradient></defs><text x="0" y="110" fill="none" stroke={`url(#step-teal-${n})`} strokeWidth="1" className="font-display" fontSize="120">{n}</text></svg>
                 <h3 className="mt-6 text-xl font-medium">{t}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{d}</p>
               </li>
@@ -203,7 +204,7 @@ function ProfileCard() {
       <div className="flex items-center gap-4">
         <div className="h-14 w-14 rounded-full border border-hairline bg-background" />
         <div><p className="font-display text-2xl">Your Name</p><p className="text-sm text-muted-foreground">AI Filmmaker</p></div>
-        <span className="ml-auto flex items-center gap-2 rounded-[3px] border border-primary/50 px-2.5 py-1 text-[11px] tracking-[0.1em] text-primary"><span className="h-1.5 w-1.5 rounded-full bg-primary" />Open to projects</span>
+        <span className="ml-auto flex items-center gap-2 rounded-[3px] border border-brand-teal-bright/50 bg-brand-teal-deep/25 px-2.5 py-1 text-[11px] tracking-[0.1em] text-brand-teal-bright"><span className="h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />Open to projects</span>
       </div>
       <div className="mt-8 grid grid-cols-3 gap-3">
         {showcase.filter((s) => s.ratio === "9:16").slice(0, 3).map((s) => (
@@ -308,10 +309,10 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
 export function FinalCTA() {
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden py-32">
-      <div className="pointer-events-none absolute -bottom-[150vw] left-1/2 h-[180vw] w-[180vw] -translate-x-1/2 rounded-full bg-background shadow-[0_-2px_0_0_var(--color-primary),0_-40px_120px_-20px_color-mix(in_oklab,var(--color-primary)_45%,transparent)] md:-bottom-[160vw]" aria-hidden />
+      <div className="pointer-events-none absolute -bottom-[150vw] left-1/2 h-[180vw] w-[180vw] -translate-x-1/2 rounded-full bg-background horizon-glow md:-bottom-[160vw]" aria-hidden />
       <motion.img src={astronautCut} alt="" aria-hidden loading="lazy" width={1024} height={1024} className="pointer-events-none absolute left-1/2 top-[14%] w-24 -translate-x-1/2 opacity-80 md:w-32" animate={{ y: [0, -10, 0], rotate: [-4, 4, -4] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
       <Container className="relative text-center">
-        <Lines className="mx-auto max-w-[1100px] text-5xl md:text-[88px]" lines={["The Future of Creativity Is", "Being Created Right Now.", <em key="i" className="text-primary">Be Part of It.</em>]} />
+        <Lines className="mx-auto max-w-[1100px] text-5xl md:text-[88px]" lines={["The Future of Creativity Is", "Being Created Right Now.", <em key="i" className="text-brand-teal-bright">Be Part of It.</em>]} />
         <Reveal delay={0.3}>
           <p className="mx-auto mt-10 max-w-[56ch] text-[18px]">Join the brands shaping tomorrow and the creators making it possible.</p>
           <p className="mx-auto mt-3 max-w-[60ch] text-muted-foreground">Whether you're looking to hire exceptional creative talent or showcase your AI filmmaking skills, your universe starts here.</p>

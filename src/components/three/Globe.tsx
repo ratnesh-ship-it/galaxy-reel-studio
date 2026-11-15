@@ -1,6 +1,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { sceneColor } from "./sceneTheme";
 
 const cities: [number, number][] = [[19, 72.8], [51.5, -0.1], [40.7, -74], [35.7, 139.7], [-33.9, 151.2], [48.9, 2.3], [1.3, 103.8], [34, -118.2], [-23.5, -46.6], [25.2, 55.3]];
 const toV = (lat: number, lon: number, r = 1) => {
@@ -20,9 +21,9 @@ function G() {
   }, []);
   const arcs = useMemo(() => {
     const pairs: [number, number][] = [[0, 1], [1, 2], [0, 3], [3, 4], [5, 0], [6, 9], [7, 2], [8, 5], [9, 1], [6, 3]];
-    const mat = new THREE.LineBasicMaterial({ color: "#D4FF3A", transparent: true, opacity: 0.7 });
-    return pairs.map(([a, b]) => {
-      const ca = cities[a]!, cb = cities[b]!; const va = toV(ca[0], ca[1]), vb = toV(cb[0], cb[1]);
+    const mat = new THREE.LineBasicMaterial({ color: sceneColor("--brand-teal-bright"), transparent: true, opacity: 0.35 });
+    return pairs.flatMap(([a, b]) => {
+      const ca = cities[a], cb = cities[b]; if (!ca || !cb) return []; const va = toV(ca[0], ca[1]), vb = toV(cb[0], cb[1]);
       const mid = va.clone().add(vb).multiplyScalar(0.5).normalize().multiplyScalar(1 + va.distanceTo(vb) * 0.35);
       const pts = new THREE.QuadraticBezierCurve3(va, mid, vb).getPoints(48);
       return new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
@@ -31,10 +32,10 @@ function G() {
   useFrame((_, d) => { if (ref.current) ref.current.rotation.y += Math.min(d, 0.05) * 0.08; });
   return (
     <group ref={ref} rotation={[0.35, 0, 0]}>
-      <points geometry={dots}><pointsMaterial size={0.012} color="#9A98A6" transparent opacity={0.6} /></points>
+      <points geometry={dots}><pointsMaterial size={0.012} color={sceneColor("--scene-moon-grey")} transparent opacity={0.6} /></points>
       {arcs.map((l, i) => <primitive key={i} object={l} />)}
       {cities.map((c, i) => (
-        <mesh key={i} position={toV(...c, 1.005)}><sphereGeometry args={[0.012, 8, 8]} /><meshBasicMaterial color="#D4FF3A" /></mesh>
+        <mesh key={i} position={toV(...c, 1.005)}><sphereGeometry args={[0.012, 8, 8]} /><meshBasicMaterial color={sceneColor("--brand-teal-bright")} /></mesh>
       ))}
     </group>
   );

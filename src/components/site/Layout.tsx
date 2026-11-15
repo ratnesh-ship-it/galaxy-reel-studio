@@ -17,21 +17,14 @@ export const nav = [
   { to: "/about", label: "About Us" },
 ] as const;
 
-export function OrbitMark({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>
-      <circle cx="16" cy="16" r="5" fill="currentColor" />
-      <ellipse cx="16" cy="16" rx="14" ry="6" stroke="currentColor" strokeWidth="1.2" transform="rotate(-25 16 16)" />
-      <circle cx="28" cy="10.5" r="1.6" className="fill-primary" />
-    </svg>
-  );
+export function BrandLogo({ className = "h-[18px] w-auto md:h-[22px]" }: { className?: string }) {
+  return <img src="/brand/jomoverse-logo-white.png" width={1513} height={193} alt="JOMOVERSE" className={className} />;
 }
 
 export function Wordmark() {
   return (
     <Link to="/" className="flex items-center gap-2.5" aria-label="JOMOVERSE home">
-      <OrbitMark />
-      <span className="text-[13px] font-semibold tracking-[0.2em]">JOMOVERSE</span>
+      <BrandLogo />
     </Link>
   );
 }
@@ -50,7 +43,7 @@ export function SiteHeader() {
         <Wordmark />
         <nav className="hidden items-center gap-7 xl:flex" aria-label="Main">
           {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="text-[13px] text-muted-foreground transition-colors hover:text-foreground" activeOptions={{ exact: true }} activeProps={{ className: "!text-foreground" }}>{n.label}</Link>
+            <Link key={n.to} to={n.to} className="border-b border-transparent pb-1 text-[13px] text-muted-foreground transition-colors hover:text-brand-teal-bright" activeOptions={{ exact: true }} activeProps={{ className: "!border-primary !text-foreground" }}>{n.label}</Link>
           ))}
         </nav>
         <div className="hidden items-center gap-6 xl:flex">
@@ -91,6 +84,7 @@ export function SiteFooter() {
       <Container>
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
+            <BrandLogo className="mb-6 h-7 w-auto" />
             <p className="font-display text-3xl">Where Brands Meet <em>AI Creators.</em></p>
             <p className="mt-4 max-w-sm text-muted-foreground">Connecting brands with the next generation of AI-powered creative talent.</p>
           </div>
@@ -108,7 +102,7 @@ export function SiteFooter() {
           </div>
         </div>
       </Container>
-      <p className="font-display text-outline mt-16 select-none text-center text-[19vw] leading-[0.8]" aria-hidden>JOMOVERSE</p>
+      <Container className="mt-16" ><img src="/brand/jomoverse-logo-white.png" width={1513} height={193} alt="" className="w-full select-none opacity-[0.07]" aria-hidden /></Container>
       <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-xs text-muted-foreground md:flex-row md:justify-between">
         <span>© 2026 JOMOVERSE. All rights reserved.</span>
         <span>Astronaut 3D model by Poly by Google, licensed CC-BY 3.0.</span>
@@ -130,8 +124,8 @@ function Cursor() {
   }, []);
   return (
     <div className="pointer-events-none fixed left-0 top-0 z-[100] hidden [@media(pointer:fine)]:block" aria-hidden>
-      <div ref={dot} className="absolute h-1.5 w-1.5 rounded-full bg-primary" />
-      <div ref={ring} className="absolute h-8 w-8 rounded-full border border-primary/50" />
+      <div ref={dot} className="absolute h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />
+      <div ref={ring} className="absolute h-8 w-8 rounded-full border border-brand-teal-bright/50" />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import nebulaUrl from "@/assets/nebula.jpg";
+import nebulaUrl from "@/assets/nebula-teal.jpg";
+import { sceneColor } from "./sceneTheme";
 
 const vert = `
 attribute float aSize; attribute float aPhase;
@@ -67,7 +68,7 @@ function Nebula({ still }: { still: boolean }) {
   return (
     <mesh ref={ref} position={[0, 0, -90]} rotation={[0, 0, -0.35]}>
       <planeGeometry args={[260, 146]} />
-      <meshBasicMaterial map={tex} transparent opacity={0.32} blending={THREE.AdditiveBlending} depthWrite={false} />
+      <meshBasicMaterial map={tex} color={sceneColor("--brand-teal")} transparent opacity={0.18} blending={THREE.AdditiveBlending} depthWrite={false} />
     </mesh>
   );
 }
