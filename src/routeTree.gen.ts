@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as JoinRouteImport } from './routes/join'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,11 +26,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -53,6 +48,11 @@ const DiscoverRoute = DiscoverRouteImport.update({
   path: '/discover',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShowcaseRoute = ShowcaseRouteImport.update({
   id: '/showcase',
   path: '/showcase',
@@ -62,32 +62,32 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
   '/discover': typeof DiscoverRoute
+  '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
   '/discover': typeof DiscoverRoute
+  '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/auth': typeof AuthRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRoute
   '/discover': typeof DiscoverRoute
+  '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
 }
 export interface FileRouteTypes {
@@ -95,42 +95,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
     | '/discover'
+    | '/join'
     | '/showcase'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
     | '/discover'
+    | '/join'
     | '/showcase'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/auth'
     | '/brands'
     | '/community'
     | '/creators'
     | '/discover'
+    | '/join'
     | '/showcase'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AuthRoute: typeof AuthRoute
   BrandsRoute: typeof BrandsRoute
   CommunityRoute: typeof CommunityRoute
   CreatorsRoute: typeof CreatorsRoute
   DiscoverRoute: typeof DiscoverRoute
+  JoinRoute: typeof JoinRoute
   ShowcaseRoute: typeof ShowcaseRoute
 }
 
@@ -148,13 +148,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -185,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscoverRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/showcase': {
       id: '/showcase'
       path: '/showcase'
@@ -198,11 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AuthRoute: AuthRoute,
   BrandsRoute: BrandsRoute,
   CommunityRoute: CommunityRoute,
   CreatorsRoute: CreatorsRoute,
   DiscoverRoute: DiscoverRoute,
+  JoinRoute: JoinRoute,
   ShowcaseRoute: ShowcaseRoute,
 }
 export const routeTree = rootRouteImport

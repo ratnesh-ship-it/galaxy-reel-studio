@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { MissionButton } from "@/components/mission/MissionEntry";
 import { useState } from "react";
 import { PageIntro } from "@/components/site/Sections";
 import { Container, btn } from "@/components/site/ui";
@@ -42,7 +43,7 @@ function Page() {
         <div className="mt-16 max-w-xl">
           <h2 className="font-display text-4xl">The directory opens soon.</h2>
           <p className="mt-4 text-muted-foreground">Creator profiles will appear here as AI creators join JOMOVERSE.</p>
-          <Link to="/creators" className={`${btn()} mt-8`}>Create Your Creator Profile</Link>
+          <MissionButton path="creator" className="mt-8">Create Your Creator Profile</MissionButton>
         </div>
       </Container>
     </>

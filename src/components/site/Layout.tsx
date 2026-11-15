@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ClientOnly } from "@tanstack/react-router";
 import { Menu, X, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Container, btn, EASE } from "./ui";
 
 const Starfield = lazy(() => import("@/components/three/Starfield"));
@@ -24,7 +25,7 @@ export function BrandLogo({ className = "h-[18px] w-auto md:h-[22px]" }: { class
 export function Wordmark() {
   return (
     <Link to="/" className="flex items-center gap-2.5" aria-label="JOMOVERSE home">
-      <BrandLogo />
+      <span className="nav-logo relative block"><BrandLogo /><span className="nav-logo-teal absolute inset-0" aria-hidden /></span>
     </Link>
   );
 }
@@ -47,8 +48,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden items-center gap-6 xl:flex">
-          <Link to="/auth" className="text-[13px] text-muted-foreground hover:text-foreground">Login</Link>
-          <Link to="/auth" search={{ mode: "signup" }} className={`${btn()} !px-4 !py-2 !text-[13px]`}>Sign Up</Link>
+          <Button asChild className={`${btn()} h-auto !px-4 !py-2 !text-[13px]`}><Link to="/join">Join JOMOVERSE</Link></Button>
         </div>
         <button className="xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-6 w-6" strokeWidth={1.5} /></button>
       </Container>
@@ -60,7 +60,7 @@ export function SiteHeader() {
               <button onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-6 w-6" strokeWidth={1.5} /></button>
             </Container>
             <Container className="flex flex-1 flex-col justify-center gap-3">
-              {[...nav, { to: "/auth" as const, label: "Login / Sign Up" }].map((n, i) => (
+              {[...nav, { to: "/join" as const, label: "Join JOMOVERSE" }].map((n, i) => (
                 <motion.div key={n.to + n.label} initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.05 * i, duration: 0.6, ease: EASE }}>
                   <Link to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl">{n.label}</Link>
                 </motion.div>
@@ -76,7 +76,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   const cols = [
     { h: "Platform", l: [["/discover", "Discover Creators"], ["/showcase", "AI Films & Ads"], ["/community", "Community"]] },
-    { h: "Join", l: [["/brands", "For Brands"], ["/creators", "For Creators"], ["/auth", "Login / Sign Up"]] },
+    { h: "Join", l: [["/brands", "For Brands"], ["/creators", "For Creators"]] },
     { h: "Company", l: [["/about", "About Us"], ["/about", "Contact"]] },
   ] as const;
   return (
@@ -102,7 +102,7 @@ export function SiteFooter() {
           </div>
         </div>
       </Container>
-      <Container className="mt-16" ><img src="/brand/jomoverse-logo-white.png" width={1513} height={193} alt="" className="w-full select-none opacity-[0.07]" aria-hidden /></Container>
+      <Container className="mt-16"><Watermark /></Container>
       <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-xs text-muted-foreground md:flex-row md:justify-between">
         <span>© 2026 JOMOVERSE. All rights reserved.</span>
         <span>Astronaut 3D model by Poly by Google, licensed CC-BY 3.0.</span>
@@ -111,19 +111,25 @@ export function SiteFooter() {
   );
 }
 
+function Watermark() {
+  return <div className="logo-watermark relative" onPointerMove={e => { const r=e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty("--spot-x", `${e.clientX-r.left}px`); e.currentTarget.style.setProperty("--spot-y", `${e.clientY-r.top}px`); }}><img src="/brand/jomoverse-logo-white.png" width={1513} height={193} alt="JOMOVERSE" className="w-full select-none opacity-[0.07]"/><span className="watermark-art absolute inset-0" aria-hidden><span className="watermark-light absolute inset-0" /></span></div>;
+}
+
 function Cursor() {
   const dot = useRef<HTMLDivElement>(null), ring = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     document.documentElement.classList.add("has-cursor");
-    let x = 0, y = 0, rx = 0, ry = 0, raf = 0;
-    const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY; if (dot.current) dot.current.style.transform = `translate(${x - 3}px, ${y - 3}px)`; };
+    let x = 0, y = 0, rx = 0, ry = 0, raf = 0, moved = false;
+    const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY; if (!moved) { rx=x; ry=y; moved=true; } setVisible(true); if (dot.current) dot.current.style.transform = `translate(${x - 3}px, ${y - 3}px)`; };
     const loop = () => { rx += (x - rx) * 0.15; ry += (y - ry) * 0.15; if (ring.current) ring.current.style.transform = `translate(${rx - 16}px, ${ry - 16}px)`; raf = requestAnimationFrame(loop); };
-    window.addEventListener("mousemove", move); loop();
-    return () => { window.removeEventListener("mousemove", move); cancelAnimationFrame(raf); document.documentElement.classList.remove("has-cursor"); };
+    const leave = () => setVisible(false);
+    window.addEventListener("mousemove", move); document.addEventListener("mouseleave", leave); loop();
+    return () => { window.removeEventListener("mousemove", move); document.removeEventListener("mouseleave", leave); cancelAnimationFrame(raf); document.documentElement.classList.remove("has-cursor"); };
   }, []);
   return (
-    <div className="pointer-events-none fixed left-0 top-0 z-[100] hidden [@media(pointer:fine)]:block" aria-hidden>
+    <div className={`pointer-events-none fixed left-0 top-0 z-[100] hidden [@media(pointer:fine)]:block ${visible ? "opacity-100" : "opacity-0"}`} aria-hidden>
       <div ref={dot} className="absolute h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />
       <div ref={ring} className="absolute h-8 w-8 rounded-full border border-brand-teal-bright/50" />
     </div>

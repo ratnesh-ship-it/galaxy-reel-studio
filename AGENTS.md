@@ -32,7 +32,9 @@ use the editor.
 ## JOMOVERSE structure
 - Home sections live in `src/components/site/Sections.tsx` and are reused by inner routes; keep copy there, not duplicated per route.
 - 3D (starfield, astronaut, globe) lives in `src/components/three/*` and is only loaded via `React.lazy` behind `<ClientOnly>` — three.js must never enter the SSR graph.
-- Showcase tiles come from `src/data/showcase.ts`; form option lists from `src/config/forms.ts` so non-devs can edit them.
+- Showcase tiles come from `src/data/showcase.ts`; form option lists from `src/config/forms.ts` and INR presets from `src/config/budget.ts` so non-devs can edit them.
 - Registrations insert directly from the browser into insert-only tables (anon INSERT policy, no SELECT) — no server function needed.
 - Keep brand colours in the Tailwind v4 CSS theme; client-only Three.js scenes resolve those same CSS variables through sceneTheme so lighting cannot drift from the UI palette.
 - Derive logo variants and the favicon from uploaded pixels, keeping the explicitly requested public logo path; never redraw the brand artwork.
+
+- Share registration rendering and validation through the mission modules for route, embedded and dialog entries so all paths save the same fields; drafts stay browser-local and analytics omit personal answers.

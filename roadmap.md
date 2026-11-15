@@ -1,3 +1,5 @@
-- [x] Replace orbit marks with the uploaded logo and derive the favicon.
-- [x] Replace accent colours and scene lighting with the brand teal system.
-- [x] Verify desktop/mobile branding, form selection colours, and existing tests.
+- [x] Remove login and wire all registration entries to the shared Mission Launch flow.
+- [x] Build eight-step brand/creator missions, previews, review, resume and card downloads.
+- [x] Save mission metadata and add registration analytics.
+- [x] Add logo reveal effects and fix the custom cursor.
+- [x] Verify both registration paths, mobile layout and tests.

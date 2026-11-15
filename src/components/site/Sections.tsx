@@ -8,6 +8,8 @@ import filmFrame from "@/assets/tile-film.jpg";
 import { universe, showcase, showcaseCategories, type ShowcaseItem } from "@/data/showcase";
 import { Container, Label, Lines, Reveal, Section, btn, List, Marquee, EASE } from "./ui";
 
+import { MissionButton } from "@/components/mission/MissionEntry";
+
 const Astronaut3D = lazy(() => import("@/components/three/Astronaut"));
 const Globe = lazy(() => import("@/components/three/Globe"));
 
@@ -50,8 +52,8 @@ export function Hero() {
           <Reveal delay={0.35}>
             <p className="mt-8 max-w-[56ch] text-[18px] leading-relaxed text-muted-foreground">Discover talented AI Filmmakers, AI Creators and visual storytellers. Turn your ideas into extraordinary brand films, advertisements and creative campaigns.</p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link to="/brands" className={btn()}>Register as a Brand <ArrowRight className="h-4 w-4" strokeWidth={1.5} /></Link>
-              <Link to="/creators" className={btn("outline")}>Join as an AI Creator</Link>
+              <MissionButton path="brand" className={btn()}>Register as a Brand <ArrowRight className="h-4 w-4" strokeWidth={1.5} /></MissionButton>
+              <MissionButton path="creator" variant="outline" className={btn("outline")}>Join as an AI Creator</MissionButton>
             </div>
             <p className="eyebrow mt-10 flex flex-wrap items-center gap-3">{["Create.", "Collaborate.", "Get Discovered.", "Get Hired."].map((t, i) => <span key={t} className="flex items-center gap-3">{i > 0 && <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground" />}{t}</span>)}</p>
           </Reveal>
@@ -94,7 +96,7 @@ export function JoinSection() {
             <h3 className="font-display mt-6 text-4xl md:text-5xl">{p.h}</h3>
             <p className="mt-5 max-w-[46ch] text-muted-foreground">{p.p}</p>
             <div className="mt-10"><List items={p.items} /></div>
-            <Link to={p.to} className={`${btn(p.v)} mt-10`}>{p.cta}</Link>
+            <MissionButton path={i === 0 ? "brand" : "creator"} variant={p.v} className="mt-10">{p.cta}</MissionButton>
           </Reveal>
         ))}
       </div>
@@ -190,7 +192,7 @@ export function BrandsSection({ n = "04", showCta = true }: { n?: string; showCt
             <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">JOMOVERSE helps brands discover and hire talented AI creators and filmmakers to produce high-quality creative content.</p>
             <p className="eyebrow mb-4 mt-10">What Brands Can Do</p>
             <List cols={2} items={["Discover verified creative talent.", "Browse portfolios and showreels.", "Post projects and creative briefs.", "Hire AI filmmakers and specialists.", "Collaborate directly with creators.", "Build long-term creative partnerships."]} />
-            {showCta && <Link to="/brands" className={`${btn()} mt-10`}>Find Your AI Creator</Link>}
+            {showCta && <MissionButton path="brand" className={`${btn()} mt-10`}>Find Your AI Creator</MissionButton>}
           </Reveal>
         </div>
       </div>
@@ -231,7 +233,7 @@ export function CreatorsSection({ n = "05", showCta = true }: { n?: string; show
             <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">JOMOVERSE gives AI creators a platform to showcase their work, build their professional identity and connect with brands worldwide.</p>
             <p className="eyebrow mb-4 mt-10">What Creators Can Do</p>
             <List cols={2} items={["Create a professional creator profile.", "Showcase films, ads and creative projects.", "Get discovered by brands.", "Receive project invitations.", "Connect with fellow creators.", "Get hired and monetize creative skills."]} />
-            {showCta && <Link to="/creators" className={`${btn()} mt-10`}>Create Your Creator Profile</Link>}
+            {showCta && <MissionButton path="creator" className={`${btn()} mt-10`}>Create Your Creator Profile</MissionButton>}
           </Reveal>
         </div>
         <Reveal className="order-1 md:order-2 md:col-span-6"><ProfileCard /></Reveal>
@@ -317,8 +319,8 @@ export function FinalCTA() {
           <p className="mx-auto mt-10 max-w-[56ch] text-[18px]">Join the brands shaping tomorrow and the creators making it possible.</p>
           <p className="mx-auto mt-3 max-w-[60ch] text-muted-foreground">Whether you're looking to hire exceptional creative talent or showcase your AI filmmaking skills, your universe starts here.</p>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
-            <Link to="/brands" className={btn()}>I'm a Brand</Link>
-            <Link to="/creators" className={btn("outline")}>I'm an AI Creator</Link>
+            <MissionButton path="brand" className={btn()}>I'm a Brand</MissionButton>
+            <MissionButton path="creator" variant="outline" className={btn("outline")}>I'm an AI Creator</MissionButton>
           </div>
         </Reveal>
       </Container>

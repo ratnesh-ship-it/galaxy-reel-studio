@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { SiteHeader, SiteFooter, SpaceBackdrop } from "@/components/site/Layout";
 import { Toaster } from "@/components/ui/sonner";
+import { MissionProvider } from "@/components/mission/MissionEntry";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -128,13 +129,13 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <div className="relative min-h-screen overflow-x-clip">
+      <MissionProvider><div className="relative min-h-screen overflow-x-clip">
         <SpaceBackdrop />
         <SiteHeader />
         <main><Outlet /></main>
         <SiteFooter />
       </div>
-      <Toaster />
+      </MissionProvider><Toaster />
     </QueryClientProvider>
   );
 }

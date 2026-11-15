@@ -71,6 +71,7 @@
   --shadow-teal: 0 8px 30px var(--brand-teal-glow);
   --shadow-planet: inset 18px 14px 40px -20px var(--brand-teal-bright), 0 0 80px -30px var(--brand-teal);
   --shadow-horizon: 0 -2px 0 0 var(--brand-teal-bright), 0 -40px 120px -20px var(--brand-teal-glow);
+  --logo-glow: drop-shadow(0 0 18px rgba(46,196,191,0.45));
   --gradient-teal: linear-gradient(90deg, var(--brand-teal), var(--brand-teal-bright));
 }
 
@@ -129,3 +130,22 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee, .animate-scrollline { animation: none; }
 }
+
+.nav-logo { transition: transform 400ms ease-out, filter 400ms ease-out; }
+.nav-logo > img, .nav-logo-teal { transition: opacity 400ms ease-out; }
+.nav-logo-teal { opacity: 0; background: var(--brand-teal); mask: url('/brand/jomoverse-logo-white.png') center / contain no-repeat; }
+.nav-logo:hover { transform: scale(1.02); filter: var(--logo-glow); }
+.nav-logo:hover > img { opacity: 0; }
+.nav-logo:hover .nav-logo-teal { opacity: 1; }
+.watermark-art { mask: url('/brand/jomoverse-logo-white.png') center / contain no-repeat; }
+.watermark-light { background: var(--gradient-teal); opacity: 0; transition: opacity 600ms ease-out; mask-image: radial-gradient(circle 130px at var(--spot-x, 50%) var(--spot-y, 50%), var(--foreground) 15%, transparent 100%); filter: var(--logo-glow); }
+.logo-watermark:hover .watermark-light { opacity: 1; }
+.mission-world { transition: transform 400ms ease-out, border-color 400ms ease-out; transform-style: preserve-3d; }
+.mission-world > span { transform: translateZ(20px); }
+.mission-shimmer { background: radial-gradient(circle 180px at var(--light-x, 50%) var(--light-y, 0%), var(--brand-teal-glow), transparent); opacity: .25; }
+@property --sweep-x { syntax: "<percentage>"; inherits: false; initial-value: -10%; }
+@media (hover: none) {
+ .watermark-light { opacity: 1; mask-image: radial-gradient(circle 130px at var(--sweep-x) 50%, var(--foreground), transparent); animation: watermark-sweep 6s linear infinite; }
+ @keyframes watermark-sweep { from { --sweep-x: -10%; } to { --sweep-x: 110%; } }
+}
+@media (prefers-reduced-motion: reduce) { .mission-world, .nav-logo, .nav-logo > img, .nav-logo-teal { transition: none; } .watermark-light { animation: none; } }

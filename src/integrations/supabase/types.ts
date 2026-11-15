@@ -24,7 +24,10 @@ export type Database = {
           email: string
           id: string
           industry: string | null
+          mission_code: string | null
           phone: string
+          source_page: string | null
+          utm_params: Json | null
           website: string | null
         }
         Insert: {
@@ -36,7 +39,10 @@ export type Database = {
           email: string
           id?: string
           industry?: string | null
+          mission_code?: string | null
           phone: string
+          source_page?: string | null
+          utm_params?: Json | null
           website?: string | null
         }
         Update: {
@@ -48,7 +54,10 @@ export type Database = {
           email?: string
           id?: string
           industry?: string | null
+          mission_code?: string | null
           phone?: string
+          source_page?: string | null
+          utm_params?: Json | null
           website?: string | null
         }
         Relationships: []
@@ -61,10 +70,13 @@ export type Database = {
           full_name: string
           id: string
           location: string | null
+          mission_code: string | null
           phone: string
           portfolio_url: string | null
+          source_page: string | null
           speciality: string | null
           tools: string[]
+          utm_params: Json | null
         }
         Insert: {
           created_at?: string
@@ -73,10 +85,13 @@ export type Database = {
           full_name: string
           id?: string
           location?: string | null
+          mission_code?: string | null
           phone: string
           portfolio_url?: string | null
+          source_page?: string | null
           speciality?: string | null
           tools?: string[]
+          utm_params?: Json | null
         }
         Update: {
           created_at?: string
@@ -85,10 +100,13 @@ export type Database = {
           full_name?: string
           id?: string
           location?: string | null
+          mission_code?: string | null
           phone?: string
           portfolio_url?: string | null
+          source_page?: string | null
           speciality?: string | null
           tools?: string[]
+          utm_params?: Json | null
         }
         Relationships: []
       }
