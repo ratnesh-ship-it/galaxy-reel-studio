@@ -5,8 +5,8 @@ export const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const btn = (v: "primary" | "outline" = "primary") =>
   v === "primary"
-    ? "inline-flex items-center justify-center gap-2 rounded-[3px] bg-primary px-6 py-3.5 text-[15px] font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover hover:glow-teal"
-    : "inline-flex items-center justify-center gap-2 rounded-[3px] border border-foreground px-6 py-3.5 text-[15px] font-medium text-foreground transition-all duration-300 hover:-translate-y-px hover:border-brand-teal-bright hover:text-brand-teal-bright";
+    ? "inline-flex items-center justify-center gap-2 rounded-[3px] bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover hover:glow-teal"
+    : "inline-flex items-center justify-center gap-2 rounded-[3px] border border-foreground px-6 py-3.5 text-base font-semibold text-foreground transition-all duration-300 hover:-translate-y-px hover:border-brand-teal-bright hover:text-brand-teal-bright";
 
 export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <p className={`eyebrow text-brand-teal-bright ${className}`}>{children}</p>;
@@ -65,7 +65,7 @@ export function Marquee({ items }: { items: string[] }) {
     <div className="overflow-hidden border-y border-hairline py-6" aria-hidden>
       <div className="flex w-max animate-marquee gap-12 whitespace-nowrap">
         {[...row, ...row].map((t, i) => (
-          <span key={i} className="flex items-center gap-12 font-display text-4xl italic text-foreground/80 md:text-5xl">
+          <span key={i} className="flex items-center gap-12 font-sans text-lg font-normal text-foreground/80">
             {t}<span className="h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />
           </span>
         ))}
@@ -78,7 +78,7 @@ export function List({ items, numbered = false, cols = 1 }: { items: string[]; n
   return (
     <ul className={`grid border-t border-hairline ${cols === 2 ? "sm:grid-cols-2 sm:gap-x-10" : ""}`}>
       {items.map((it, i) => (
-        <li key={it} className="flex items-baseline gap-4 border-b border-hairline py-4 text-[17px]">
+        <li key={it} className="flex items-baseline gap-4 border-b border-hairline py-4 text-lg">
           {numbered ? <span className="w-6 text-xs font-medium text-brand-teal-bright">{String(i + 1).padStart(2, "0")}</span> : <span className="h-px w-3 shrink-0 translate-y-[-4px] bg-muted-foreground" />}
           <span>{it}</span>
         </li>

@@ -48,7 +48,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="hidden items-center gap-6 xl:flex">
-          <Button asChild className={`${btn()} h-auto !px-4 !py-2 !text-[13px]`}><Link to="/join">Join JOMOVERSE</Link></Button>
+          <Button asChild className={`${btn()} h-auto !px-4 !py-2 !text-base`}><Link to="/join">Join JOMOVERSE</Link></Button>
         </div>
         <button className="xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-6 w-6" strokeWidth={1.5} /></button>
       </Container>
@@ -62,7 +62,7 @@ export function SiteHeader() {
             <Container className="flex flex-1 flex-col justify-center gap-3">
               {[...nav, { to: "/join" as const, label: "Join JOMOVERSE" }].map((n, i) => (
                 <motion.div key={n.to + n.label} initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.05 * i, duration: 0.6, ease: EASE }}>
-                  <Link to={n.to} onClick={() => setOpen(false)} className="font-display text-5xl">{n.label}</Link>
+                  <Link to={n.to} onClick={() => setOpen(false)} className="font-sans text-3xl font-normal">{n.label}</Link>
                 </motion.div>
               ))}
             </Container>
@@ -103,7 +103,7 @@ export function SiteFooter() {
         </div>
       </Container>
       <Container className="mt-16"><Watermark /></Container>
-      <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-xs text-muted-foreground md:flex-row md:justify-between">
+      <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-sm text-muted-foreground md:flex-row md:justify-between">
         <span>© 2026 JOMOVERSE. All rights reserved.</span>
         <span>Astronaut 3D model by Poly by Google, licensed CC-BY 3.0.</span>
       </Container>

@@ -3,6 +3,7 @@ import { MissionButton } from "@/components/mission/MissionEntry";
 import { useState } from "react";
 import { PageIntro } from "@/components/site/Sections";
 import { Container, btn } from "@/components/site/ui";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { specialities, experienceLevels } from "@/config/forms";
 
 export const Route = createFileRoute("/discover")({
@@ -12,12 +13,13 @@ export const Route = createFileRoute("/discover")({
 
 function Filter({ label, options, value, onChange }: { label: string; options: string[]; value: string; onChange: (v: string) => void }) {
   return (
-    <label className="block">
+    <div className="block">
       <span className="eyebrow">{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none focus:border-brand-teal-bright [&>option]:bg-card">
-        <option value="">All</option>{options.map((o) => <option key={o}>{o}</option>)}
-      </select>
-    </label>
+      <Select value={value || 'all'} onValueChange={v=>onChange(v==='all'?'':v)}>
+        <SelectTrigger aria-label={label} className="type-answer mt-2 h-auto rounded-none border-0 border-b border-input px-0 py-2 shadow-none"><SelectValue /></SelectTrigger>
+        <SelectContent className="font-sans"><SelectItem value="all" className="type-answer">All</SelectItem>{options.map(o=><SelectItem key={o} value={o} className="type-answer">{o}</SelectItem>)}</SelectContent>
+      </Select>
+    </div>
   );
 }
 
@@ -30,7 +32,7 @@ function Page() {
         <div className="grid gap-8 border-y border-hairline py-8 md:grid-cols-3">
           <Filter label="Speciality" options={specialities} value={s} onChange={setS} />
           <Filter label="Experience" options={experienceLevels} value={e} onChange={setE} />
-          <label className="block"><span className="eyebrow">Tools</span><input value={t} onChange={(ev) => setT(ev.target.value)} placeholder="e.g. Runway, Sora…" className="mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none placeholder:text-muted-foreground/50 focus:border-brand-teal-bright" /></label>
+          <label className="block"><span className="eyebrow">Tools</span><input value={t} onChange={(ev) => setT(ev.target.value)} placeholder="e.g. Runway, Sora…" className="type-answer mt-2 w-full border-0 border-b border-input bg-transparent pb-2 outline-none placeholder:text-foreground/40 focus:border-brand-teal-bright" /></label>
         </div>
         <div className="mt-12 grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -41,7 +43,7 @@ function Page() {
           ))}
         </div>
         <div className="mt-16 max-w-xl">
-          <h2 className="font-display text-4xl">The directory opens soon.</h2>
+          <h2 className="type-section">The directory opens soon.</h2>
           <p className="mt-4 text-muted-foreground">Creator profiles will appear here as AI creators join JOMOVERSE.</p>
           <MissionButton path="creator" className="mt-8">Create Your Creator Profile</MissionButton>
         </div>

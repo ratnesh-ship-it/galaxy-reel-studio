@@ -38,3 +38,5 @@ use the editor.
 - Derive logo variants and the favicon from uploaded pixels, keeping the explicitly requested public logo path; never redraw the brand artwork.
 
 - Share registration rendering and validation through the mission modules for route, embedded and dialog entries so all paths save the same fields; drafts stay browser-local and analytics omit personal answers.
+
+- Define typography scales in the global Tailwind v4 theme/utilities and load fonts once in the root head; shared mission typography primitives and Radix Select keep all registration entry points and card exports consistent.

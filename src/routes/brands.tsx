@@ -16,7 +16,7 @@ function Page() {
       <ProcessSection />
       <Section id="register">
         <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-4"><Label>— Brand Registration</Label><Lines className="mt-8 text-5xl" lines={["Register", <em key="i">Your Brand.</em>]} /></div>
+          <div className="md:col-span-4"><Label>— Brand Registration</Label><Lines className="mt-8 type-section" lines={["Register", <em key="i">Your Brand.</em>]} /></div>
           <div className="md:col-span-8"><BrandForm /></div>
         </div>
       </Section>

@@ -10,13 +10,13 @@ export const Route = createFileRoute("/about")({
       <Section className="border-t border-hairline">
         <div className="grid gap-10 md:grid-cols-12">
           <Label className="md:col-span-3">— Brand Personality</Label>
-          <Lines className="text-5xl md:col-span-9 md:text-7xl" lines={[<><em>Futuristic,</em> cinematic,</>, <>innovative, <em>collaborative</em></>, "and global."]} />
+          <Lines className="type-section md:col-span-9" lines={[<><em>Futuristic,</em> cinematic,</>, <>innovative, <em>collaborative</em></>, "and global."]} />
         </div>
       </Section>
       <Section className="border-t border-hairline">
         <div className="grid gap-10 md:grid-cols-12">
           <Label className="md:col-span-3">— Core Positioning</Label>
-          <Reveal className="md:col-span-9"><p className="font-display text-4xl md:text-6xl">The global creative marketplace and community for the <em>AI Creator Economy.</em></p></Reveal>
+          <Reveal className="md:col-span-9"><p className="type-section">The global creative marketplace and community for the <em>AI Creator Economy.</em></p></Reveal>
         </div>
       </Section>
       <FinalCTA />

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/community")({
           {["AI filmmaking challenges.", "Learning and masterclasses."].map((t, i) => (
             <Reveal key={t} delay={i * 0.1} className={`py-14 ${i === 0 ? "md:border-r md:border-hairline md:pr-14" : "border-t border-hairline md:border-t-0 md:pl-14"}`}>
               <Label>Coming soon</Label>
-              <h3 className="font-display mt-6 text-5xl">{t}</h3>
+              <h3 className="type-section mt-6">{t}</h3>
             </Reveal>
           ))}
         </div>

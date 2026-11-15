@@ -34,8 +34,8 @@
   --color-brand-teal-deep: var(--brand-teal-deep);
   --color-primary-hover: var(--primary-hover);
   --color-nebula: var(--nebula);
-  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", serif;
+  --font-sans: "Inter Tight", sans-serif;
   --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -77,27 +77,30 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { background: var(--color-background); }
+  html { background: var(--color-background); font-family: var(--font-sans); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-size: 17px;
+    font-size: 18px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
+  input, textarea, select, button, option, label { font-family: inherit; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
   ::selection { background: var(--color-primary); color: var(--color-primary-foreground); }
   :focus-visible { outline: 1px solid var(--brand-teal-bright); outline-offset: 3px; }
   @media (pointer: fine) { .has-cursor, .has-cursor * { cursor: none; } }
 }
 
 @utility font-display {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: 1.02;
 }
 @utility eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-muted-foreground);
@@ -149,3 +152,11 @@
  @keyframes watermark-sweep { from { --sweep-x: -10%; } to { --sweep-x: 110%; } }
 }
 @media (prefers-reduced-motion: reduce) { .mission-world, .nav-logo, .nav-logo > img, .nav-logo-teal { transition: none; } .watermark-light { animation: none; } }
+
+@utility type-hero { font-family: var(--font-display); font-size: 44px; font-weight: 400; line-height: 1.02; letter-spacing: 0; @media (min-width: 768px) { font-size: 96px; } }
+@utility type-section { font-family: var(--font-display); font-size: 34px; font-weight: 400; line-height: 1.1; letter-spacing: 0; @media (min-width: 768px) { font-size: 56px; } }
+@utility type-question { font-family: var(--font-display); font-size: 28px; font-weight: 400; line-height: 1.15; letter-spacing: 0; @media (min-width: 768px) { font-size: 44px; } }
+@utility type-card-name { font-family: var(--font-display); font-size: 32px; font-weight: 400; line-height: 1.15; letter-spacing: 0; }
+@utility type-answer { font-family: var(--font-sans); font-size: 22px; font-weight: 400; line-height: 1.6; }
+.mission-card { font-family: var(--font-sans); }
+.mission-card dd { overflow-wrap: anywhere; }

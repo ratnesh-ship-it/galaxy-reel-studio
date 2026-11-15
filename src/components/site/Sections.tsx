@@ -44,7 +44,7 @@ export function Hero() {
       <Container className="relative">
         <div className="max-w-[960px]">
           <Label className="mb-8">Where Brands Meet AI Creators.</Label>
-          <Lines as="h1" className="text-[44px] sm:text-6xl md:text-[80px] lg:text-[96px]" lines={[
+          <Lines as="h1" className="type-hero" lines={[
             <>Launch Your First <em>AI Film.</em></>,
             <>Your First <em>AI Ad.</em></>,
             <span className="text-brand-teal-bright">Today.</span>,
@@ -74,8 +74,8 @@ function SectionHead({ n, label, lines, intro, intro2 }: { n: string; label: str
     <div className="grid gap-8 md:grid-cols-12">
       <Label className="md:col-span-3">— {n} / {label}</Label>
       <div className="md:col-span-9">
-        <Lines className="text-5xl md:text-7xl" lines={lines} />
-        {intro && <Reveal delay={0.2}><p className="mt-8 max-w-[60ch] text-[18px] leading-relaxed text-muted-foreground">{intro}</p>{intro2 && <p className="mt-3 max-w-[60ch] text-[17px] text-muted-foreground">{intro2}</p>}</Reveal>}
+        <Lines className="type-section" lines={lines} />
+        {intro && <Reveal delay={0.2}><p className="mt-8 max-w-[60ch] text-[18px] leading-relaxed text-muted-foreground">{intro}</p>{intro2 && <p className="mt-3 max-w-[60ch] text-lg text-muted-foreground">{intro2}</p>}</Reveal>}
       </div>
     </div>
   );
@@ -149,7 +149,7 @@ export function ProcessSection() {
             <Reveal key={n} delay={i * 0.12}>
               <li className="pl-14 md:pl-0">
                 <svg viewBox="0 0 180 125" className="h-[72px] w-[104px] md:h-[120px] md:w-[173px]" role="img" aria-label={n}><defs><linearGradient id={`step-teal-${n}`}><stop stopColor="var(--brand-teal)" /><stop offset="1" stopColor="var(--brand-teal-bright)" /></linearGradient></defs><text x="0" y="110" fill="none" stroke={`url(#step-teal-${n})`} strokeWidth="1" className="font-display" fontSize="120">{n}</text></svg>
-                <h3 className="mt-6 text-xl font-medium">{t}</h3>
+                <h3 className="font-display mt-6 text-3xl">{t}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{d}</p>
               </li>
             </Reveal>
@@ -171,10 +171,10 @@ function FilmFrame() {
         <span className={`${mark} left-0 top-0 border-l border-t`} /><span className={`${mark} right-0 top-0 border-r border-t`} />
         <span className={`${mark} bottom-0 left-0 border-b border-l`} /><span className={`${mark} bottom-0 right-0 border-b border-r`} />
       </div>
-      <div className="absolute left-[9%] top-[11%] flex items-center gap-2 text-[11px] tracking-[0.2em]"><span className="h-2 w-2 animate-pulse rounded-full bg-destructive" />REC</div>
-      <div className="absolute right-[9%] top-[11%] text-[11px] tracking-[0.2em] text-foreground/80">2.39 : 1</div>
-      <div className="absolute bottom-[11%] left-[9%] font-mono text-[11px] tabular-nums tracking-[0.15em] text-foreground/80">{tc}</div>
-      <div className="absolute bottom-[11%] right-[9%] text-[11px] tracking-[0.2em] text-foreground/80">4K · 24FPS</div>
+      <div className="absolute left-[9%] top-[11%] flex items-center gap-2 eyebrow"><span className="h-2 w-2 animate-pulse rounded-full bg-destructive" />REC</div>
+      <div className="absolute right-[9%] top-[11%] eyebrow text-foreground/80">2.39 : 1</div>
+      <div className="absolute bottom-[11%] left-[9%] font-sans text-sm tabular-nums text-foreground/80">{tc}</div>
+      <div className="absolute bottom-[11%] right-[9%] eyebrow text-foreground/80">4K · 24FPS</div>
     </div>
   );
 }
@@ -186,10 +186,10 @@ export function BrandsSection({ n = "04", showCta = true }: { n?: string; showCt
         <Reveal className="md:col-span-6"><FilmFrame /></Reveal>
         <div className="md:col-span-6">
           <Label>— {n} / For Brands</Label>
-          <Lines className="mt-8 text-5xl md:text-6xl" lines={["Your Next Big Campaign", <>Could Be <em>AI-Powered.</em></>]} />
+          <Lines className="mt-8 type-section" lines={["Your Next Big Campaign", <>Could Be <em>AI-Powered.</em></>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">Why spend weeks searching for creative talent when the right AI creator could be just one click away?</p>
-            <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">JOMOVERSE helps brands discover and hire talented AI creators and filmmakers to produce high-quality creative content.</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE helps brands discover and hire talented AI creators and filmmakers to produce high-quality creative content.</p>
             <p className="eyebrow mb-4 mt-10">What Brands Can Do</p>
             <List cols={2} items={["Discover verified creative talent.", "Browse portfolios and showreels.", "Post projects and creative briefs.", "Hire AI filmmakers and specialists.", "Collaborate directly with creators.", "Build long-term creative partnerships."]} />
             {showCta && <MissionButton path="brand" className={`${btn()} mt-10`}>Find Your AI Creator</MissionButton>}
@@ -205,7 +205,7 @@ function ProfileCard() {
     <div className="border border-hairline bg-card p-6 md:p-8">
       <div className="flex items-center gap-4">
         <div className="h-14 w-14 rounded-full border border-hairline bg-background" />
-        <div><p className="font-display text-2xl">Your Name</p><p className="text-sm text-muted-foreground">AI Filmmaker</p></div>
+        <div><p className="type-card-name">Your Name</p><p className="text-sm text-muted-foreground">AI Filmmaker</p></div>
         <span className="ml-auto flex items-center gap-2 rounded-[3px] border border-brand-teal-bright/50 bg-brand-teal-deep/25 px-2.5 py-1 text-[11px] tracking-[0.1em] text-brand-teal-bright"><span className="h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />Open to projects</span>
       </div>
       <div className="mt-8 grid grid-cols-3 gap-3">
@@ -227,10 +227,10 @@ export function CreatorsSection({ n = "05", showCta = true }: { n?: string; show
       <div className="grid items-center gap-16 md:grid-cols-12">
         <div className="order-2 md:order-1 md:col-span-6">
           <Label>— {n} / For Creators</Label>
-          <Lines className="mt-8 text-5xl md:text-6xl" lines={["Your Talent. Your Portfolio.", <em key="i">Your Next Big Opportunity.</em>]} />
+          <Lines className="mt-8 type-section" lines={["Your Talent. Your Portfolio.", <em key="i">Your Next Big Opportunity.</em>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">You have the skills. You have the imagination. Now find the brands and opportunities that need your talent.</p>
-            <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">JOMOVERSE gives AI creators a platform to showcase their work, build their professional identity and connect with brands worldwide.</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE gives AI creators a platform to showcase their work, build their professional identity and connect with brands worldwide.</p>
             <p className="eyebrow mb-4 mt-10">What Creators Can Do</p>
             <List cols={2} items={["Create a professional creator profile.", "Showcase films, ads and creative projects.", "Get discovered by brands.", "Receive project invitations.", "Connect with fellow creators.", "Get hired and monetize creative skills."]} />
             {showCta && <MissionButton path="creator" className={`${btn()} mt-10`}>Create Your Creator Profile</MissionButton>}
@@ -251,10 +251,10 @@ export function CommunitySection({ showCta = true }: { showCta?: boolean }) {
       <Container className="relative">
         <div className="max-w-[720px]">
           <Label>— 06 / Community</Label>
-          <Lines className="mt-8 text-5xl md:text-7xl" lines={["More Than a Marketplace.", <em key="i">A Creative Movement.</em>]} />
+          <Lines className="mt-8 type-section" lines={["More Than a Marketplace.", <em key="i">A Creative Movement.</em>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">The future of filmmaking and advertising won't be built by technology alone. It will be built by people who know how to use it creatively.</p>
-            <p className="mt-4 text-[17px] leading-relaxed text-muted-foreground">JOMOVERSE is building a global community where AI creators learn, share, collaborate, experiment and grow together.</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE is building a global community where AI creators learn, share, collaborate, experiment and grow together.</p>
             <p className="eyebrow mb-4 mt-10">Community Features</p>
             <List numbered items={["Global creator networking.", "AI filmmaking challenges.", "Creative collaborations.", "Featured creator showcases.", "Industry trends and inspiration.", "Learning and masterclasses."]} />
             {showCta && <Link to="/community" className={`${btn("outline")} mt-10`}>Explore the Community</Link>}
@@ -314,7 +314,7 @@ export function FinalCTA() {
       <div className="pointer-events-none absolute -bottom-[150vw] left-1/2 h-[180vw] w-[180vw] -translate-x-1/2 rounded-full bg-background horizon-glow md:-bottom-[160vw]" aria-hidden />
       <motion.img src={astronautCut} alt="" aria-hidden loading="lazy" width={1024} height={1024} className="pointer-events-none absolute left-1/2 top-[14%] w-24 -translate-x-1/2 opacity-80 md:w-32" animate={{ y: [0, -10, 0], rotate: [-4, 4, -4] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
       <Container className="relative text-center">
-        <Lines className="mx-auto max-w-[1100px] text-5xl md:text-[88px]" lines={["The Future of Creativity Is", "Being Created Right Now.", <em key="i" className="text-brand-teal-bright">Be Part of It.</em>]} />
+        <Lines className="mx-auto max-w-[1100px] type-section" lines={["The Future of Creativity Is", "Being Created Right Now.", <em key="i" className="text-brand-teal-bright">Be Part of It.</em>]} />
         <Reveal delay={0.3}>
           <p className="mx-auto mt-10 max-w-[56ch] text-[18px]">Join the brands shaping tomorrow and the creators making it possible.</p>
           <p className="mx-auto mt-3 max-w-[60ch] text-muted-foreground">Whether you're looking to hire exceptional creative talent or showcase your AI filmmaking skills, your universe starts here.</p>
@@ -333,7 +333,7 @@ export function PageIntro({ label, lines, sub }: { label: string; lines: React.R
     <section className="pb-16 pt-40 md:pt-52">
       <Container>
         <Label>{label}</Label>
-        <Lines as="h1" className="mt-8 max-w-[1100px] text-[44px] md:text-[96px]" lines={lines} />
+        <Lines as="h1" className="mt-8 max-w-[1100px] type-hero" lines={lines} />
         {sub && <Reveal delay={0.25}><p className="mt-8 max-w-[60ch] text-[18px] leading-relaxed text-muted-foreground">{sub}</p></Reveal>}
       </Container>
     </section>

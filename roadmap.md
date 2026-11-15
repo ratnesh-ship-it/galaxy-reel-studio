@@ -3,3 +3,5 @@
 - [x] Save mission metadata and add registration analytics.
 - [x] Add logo reveal effects and fix the custom cursor.
 - [x] Verify both registration paths, mobile layout and tests.
+- [x] Unify site and mission typography and replace native dropdowns.
+- [x] Verify typography on both paths, downloaded cards and mobile layouts.
