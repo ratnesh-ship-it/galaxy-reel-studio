@@ -5,8 +5,8 @@ export const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const btn = (v: "primary" | "outline" = "primary") =>
   v === "primary"
-    ? "inline-flex items-center justify-center gap-2 rounded-[3px] bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover hover:glow-teal"
-    : "inline-flex items-center justify-center gap-2 rounded-[3px] border border-foreground px-6 py-3.5 text-base font-semibold text-foreground transition-all duration-300 hover:-translate-y-px hover:border-brand-teal-bright hover:text-brand-teal-bright";
+    ? "inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover "
+    : "inline-flex items-center justify-center gap-2 rounded-md border border-foreground px-6 py-3.5 text-base font-semibold text-foreground transition-all duration-300 hover:-translate-y-px hover:bg-foreground hover:text-background";
 
 export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <p className={`eyebrow text-brand-teal-bright ${className}`}>{children}</p>;
@@ -17,7 +17,7 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 24 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, ease: EASE, delay }}
@@ -33,7 +33,7 @@ export function Lines({ lines, as: Tag = "h2", className = "" }: { lines: ReactN
   return (
     <Tag className={`font-display ${className}`}>
       {lines.map((l, i) => (
-        <motion.span key={i} className="block overflow-hidden pb-[0.08em]" initial={reduce ? false : "hidden"} whileInView="show" viewport={{ once: true }}>
+        <motion.span key={i} className="block overflow-hidden pb-[0.08em]" initial={false} animate="show">
           <motion.span
             className="block"
             variants={{ hidden: { y: "105%" }, show: { y: 0 } }}

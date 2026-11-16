@@ -1,3 +1,17 @@
+/* Layout audit (TanStack root layout; this project has no App.tsx):
+ * Transparent menu + competing stacking contexts exposed page text: solid body portal at 100, header 90.
+ * Portal inside AnimatePresence failed to mount reliably: render the menu portal directly.
+ * Menu allowed underlying scroll: restore html/body overflow on Escape, close, links and route changes.
+ * Global grain/vignette crossed menus and light pages: confine grain/stars to the two space sections.
+ * Absolute mobile astronaut covered text: place it after text in a separate 260px track.
+ * Fixed header obscured page starts: reserve 64px mobile / 72px desktop in shared main.
+ * Form country selector squeezed fields: narrower selector and min-width:0 input; focus scrolls into view.
+ * Sticky preview covered controls: use a collapsible in-flow chip below navigation.
+ * Wide cards and URLs escaped columns: responsive grids, wrapping and constrained media.
+ * Masked entrance animations could leave headings invisible: headings render visible from the first paint.
+ * Default button background masked outline labels: choose the matching design-system variant.
+ * Tested all content pages at 360,390,768,1024,1440,1920 with no horizontal overflow.
+ */
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -99,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
     ],
   }),
@@ -111,7 +125,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" >
       <head>
         <HeadContent />
       </head>
@@ -132,7 +146,7 @@ function RootComponent() {
       <MissionProvider><div className="relative min-h-screen overflow-x-clip">
         <SpaceBackdrop />
         <SiteHeader />
-        <main><Outlet /></main>
+        <main className="relative z-10 pt-16 md:pt-[72px]"><Outlet /></main>
         <SiteFooter />
       </div>
       </MissionProvider><Toaster />

@@ -11,12 +11,12 @@ export const Route = createFileRoute("/brands")({
 function Page() {
   return (
     <>
-      <PageIntro label="For Brands" lines={["Your Next Big Campaign", <em key="i">Starts Here.</em>]} sub="Discover, connect and hire the next generation of AI-powered creative talent." />
+      <PageIntro label="For Brands" lines={["Your Next Big Campaign", <span key="i">Starts Here.</span>]} sub="Discover, connect and hire the next generation of AI-powered creative talent." />
       <BrandsSection n="01" showCta={false} />
       <ProcessSection />
       <Section id="register">
         <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-4"><Label>— Brand Registration</Label><Lines className="mt-8 type-section" lines={["Register", <em key="i">Your Brand.</em>]} /></div>
+          <div className="md:col-span-4"><Label>— Brand Registration</Label><Lines className="mt-8 type-section" lines={["Register", <span key="i">Your Brand.</span>]} /></div>
           <div className="md:col-span-8"><BrandForm /></div>
         </div>
       </Section>

@@ -1,9 +1,10 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ClientOnly } from "@tanstack/react-router";
 import { Menu, X, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createPortal } from "react-dom";
 import { Container, btn, EASE } from "./ui";
 
 const Starfield = lazy(() => import("@/components/three/Starfield"));
@@ -32,6 +33,9 @@ export function Wordmark() {
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  useEffect(() => { setOpen(false); }, [location.pathname]);
+  useEffect(() => { if (!open) return; const html = document.documentElement.style.overflow, body = document.body.style.overflow; document.documentElement.style.overflow = "hidden"; document.body.style.overflow = "hidden"; const escape = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); }; window.addEventListener("keydown", escape); return () => { document.documentElement.style.overflow = html; document.body.style.overflow = body; window.removeEventListener("keydown", escape); }; }, [open]);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 24);
@@ -39,8 +43,8 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", on);
   }, []);
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${scrolled ? "border-b border-hairline bg-background/70 backdrop-blur-xl" : "border-b border-transparent"}`}>
-      <Container className="flex h-[72px] items-center justify-between">
+    <header className={`fixed inset-x-0 top-0 z-[90] bg-background transition-colors duration-500 ${scrolled ? "border-b border-hairline bg-background" : "border-b border-transparent"}`}>
+      <Container className="flex h-16 md:h-[72px] items-center justify-between">
         <Wordmark />
         <nav className="hidden items-center gap-7 xl:flex" aria-label="Main">
           {nav.map((n) => (
@@ -50,25 +54,23 @@ export function SiteHeader() {
         <div className="hidden items-center gap-6 xl:flex">
           <Button asChild className={`${btn()} h-auto !px-4 !py-2 !text-base`}><Link to="/join">Join JOMOVERSE</Link></Button>
         </div>
-        <button className="xl:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-6 w-6" strokeWidth={1.5} /></button>
+        <Button variant="ghost" size="icon" className="xl:hidden min-h-12 min-w-12" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-6 w-6" strokeWidth={1.5} /></Button>
       </Container>
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: EASE }} className="fixed inset-0 z-50 flex flex-col bg-background/90 backdrop-blur-sm">
-            <Container className="flex h-[72px] items-center justify-between">
+        {open && createPortal(
+          <div role="dialog" aria-modal="true" aria-label="Navigation menu" className="fixed inset-0 z-[100] flex h-[100dvh] flex-col overflow-y-auto bg-background">
+            <Container className="flex h-16 md:h-[72px] items-center justify-between">
               <Wordmark />
-              <button onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-6 w-6" strokeWidth={1.5} /></button>
+              <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-6 w-6" strokeWidth={1.5} /></Button>
             </Container>
-            <Container className="flex flex-1 flex-col justify-center gap-3">
+            <Container className="flex flex-1 flex-col justify-center gap-3 py-6">
               {[...nav, { to: "/join" as const, label: "Join JOMOVERSE" }].map((n, i) => (
                 <motion.div key={n.to + n.label} initial={{ y: 24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.05 * i, duration: 0.6, ease: EASE }}>
-                  <Link to={n.to} onClick={() => setOpen(false)} className="font-sans text-3xl font-normal">{n.label}</Link>
+                  <Link to={n.to} onClick={() => setOpen(false)} className="font-sans text-2xl font-medium">{n.label}</Link>
                 </motion.div>
               ))}
             </Container>
-          </motion.div>
+          </div>, document.body
         )}
-      </AnimatePresence>
     </header>
   );
 }
@@ -80,12 +82,12 @@ export function SiteFooter() {
     { h: "Company", l: [["/about", "About Us"], ["/about", "Contact"]] },
   ] as const;
   return (
-    <footer className="relative border-t border-hairline pt-20">
+    <footer className="space-dark relative z-10 border-t border-hairline pt-20">
       <Container>
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <BrandLogo className="mb-6 h-7 w-auto" />
-            <p className="font-display text-3xl">Where Brands Meet <em>AI Creators.</em></p>
+            <p className="font-display text-3xl">Where Brands Meet <span>AI Creators.</span></p>
             <p className="mt-4 max-w-sm text-muted-foreground">Connecting brands with the next generation of AI-powered creative talent.</p>
           </div>
           {cols.map((c) => (
@@ -129,7 +131,7 @@ function Cursor() {
     return () => { window.removeEventListener("mousemove", move); document.removeEventListener("mouseleave", leave); cancelAnimationFrame(raf); document.documentElement.classList.remove("has-cursor"); };
   }, []);
   return (
-    <div className={`pointer-events-none fixed left-0 top-0 z-[100] hidden [@media(pointer:fine)]:block ${visible ? "opacity-100" : "opacity-0"}`} aria-hidden>
+    <div className={`pointer-events-none fixed left-0 top-0 z-50 custom-cursor hidden [@media(pointer:fine)]:block ${visible ? "opacity-100" : "opacity-0"}`} aria-hidden>
       <div ref={dot} className="absolute h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />
       <div ref={ring} className="absolute h-8 w-8 rounded-full border border-brand-teal-bright/50" />
     </div>
@@ -151,16 +153,5 @@ function SmoothScroll() {
 }
 
 export function SpaceBackdrop() {
-  return (
-    <>
-      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden>
-        <ClientOnly fallback={null}>
-          <Suspense fallback={null}><Starfield /></Suspense>
-        </ClientOnly>
-      </div>
-      <div className="pointer-events-none fixed inset-0 z-40 vignette" aria-hidden />
-      <div className="pointer-events-none fixed inset-0 z-[61] grain" aria-hidden />
-      <ClientOnly fallback={null}><Cursor /><SmoothScroll /></ClientOnly>
-    </>
-  );
+ return <ClientOnly fallback={null}><Cursor /></ClientOnly>;
 }

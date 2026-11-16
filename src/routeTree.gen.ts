@@ -17,6 +17,8 @@ import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
+import { Route as CreatorsIndexRouteImport } from './routes/creators.index'
+import { Route as CreatorsPublicIdRouteImport } from './routes/creators.$publicId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,26 +60,39 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
   path: '/showcase',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorsIndexRoute = CreatorsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreatorsRoute,
+} as any)
+const CreatorsPublicIdRoute = CreatorsPublicIdRouteImport.update({
+  id: '/$publicId',
+  path: '/$publicId',
+  getParentRoute: () => CreatorsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
-  '/creators': typeof CreatorsRoute
+  '/creators': typeof CreatorsRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/creators/$publicId': typeof CreatorsPublicIdRoute
+  '/creators/': typeof CreatorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
-  '/creators': typeof CreatorsRoute
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/creators/$publicId': typeof CreatorsPublicIdRoute
+  '/creators': typeof CreatorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -85,10 +100,12 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
-  '/creators': typeof CreatorsRoute
+  '/creators': typeof CreatorsRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/creators/$publicId': typeof CreatorsPublicIdRoute
+  '/creators/': typeof CreatorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,16 +118,19 @@ export interface FileRouteTypes {
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/creators/$publicId'
+    | '/creators/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/brands'
     | '/community'
-    | '/creators'
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/creators/$publicId'
+    | '/creators'
   id:
     | '__root__'
     | '/'
@@ -121,6 +141,8 @@ export interface FileRouteTypes {
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/creators/$publicId'
+    | '/creators/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,7 +150,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BrandsRoute: typeof BrandsRoute
   CommunityRoute: typeof CommunityRoute
-  CreatorsRoute: typeof CreatorsRoute
+  CreatorsRoute: typeof CreatorsRouteWithChildren
   DiscoverRoute: typeof DiscoverRoute
   JoinRoute: typeof JoinRoute
   ShowcaseRoute: typeof ShowcaseRoute
@@ -192,15 +214,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creators/': {
+      id: '/creators/'
+      path: '/'
+      fullPath: '/creators/'
+      preLoaderRoute: typeof CreatorsIndexRouteImport
+      parentRoute: typeof CreatorsRoute
+    }
+    '/creators/$publicId': {
+      id: '/creators/$publicId'
+      path: '/$publicId'
+      fullPath: '/creators/$publicId'
+      preLoaderRoute: typeof CreatorsPublicIdRouteImport
+      parentRoute: typeof CreatorsRoute
+    }
   }
 }
+
+interface CreatorsRouteChildren {
+  CreatorsPublicIdRoute: typeof CreatorsPublicIdRoute
+  CreatorsIndexRoute: typeof CreatorsIndexRoute
+}
+
+const CreatorsRouteChildren: CreatorsRouteChildren = {
+  CreatorsPublicIdRoute: CreatorsPublicIdRoute,
+  CreatorsIndexRoute: CreatorsIndexRoute,
+}
+
+const CreatorsRouteWithChildren = CreatorsRoute._addFileChildren(
+  CreatorsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BrandsRoute: BrandsRoute,
   CommunityRoute: CommunityRoute,
-  CreatorsRoute: CreatorsRoute,
+  CreatorsRoute: CreatorsRouteWithChildren,
   DiscoverRoute: DiscoverRoute,
   JoinRoute: JoinRoute,
   ShowcaseRoute: ShowcaseRoute,

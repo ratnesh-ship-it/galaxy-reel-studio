@@ -40,3 +40,8 @@ use the editor.
 - Share registration rendering and validation through the mission modules for route, embedded and dialog entries so all paths save the same fields; drafts stay browser-local and analytics omit personal answers.
 
 - Define typography scales in the global Tailwind v4 theme/utilities and load fonts once in the root head; shared mission typography primitives and Radix Select keep all registration entry points and card exports consistent.
+
+- Publish creator data through the trigger-synced public_creators table with explicit safe-column projections; private contacts never enter directory queries.
+- Avatar storage is private under workspace policy; only photos linked to visible profiles may be signed for display.
+- /creators is an Outlet layout with its marketing index and public-ID child pages to avoid path conflicts.
+- Overlay layers are portalled above page stacking contexts; menu locks html/body scroll and closes on Escape, navigation, or link taps.

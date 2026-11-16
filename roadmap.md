@@ -5,3 +5,7 @@
 - [x] Verify both registration paths, mobile layout and tests.
 - [x] Unify site and mission typography and replace native dropdowns.
 - [x] Verify typography on both paths, downloaded cards and mobile layouts.
+- [x] Apply white/black theme and upright Inter Tight throughout.
+- [x] Fix menu layering and audit all pages at six requested widths.
+- [x] Add safe public creators, optional avatars, live directory and profiles.
+- [x] Add private hiring enquiries and verify registration/public privacy end to end.

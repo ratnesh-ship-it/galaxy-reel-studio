@@ -27,11 +27,12 @@ export function Hero() {
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   const desktop = useIsDesktop();
   return (
-    <section ref={ref} className="relative flex min-h-[100svh] items-center overflow-hidden pt-[72px]">
+    <section ref={ref} className="hero-light relative flex flex-col min-h-[700px] overflow-hidden lg:justify-center">
+      <div className="space-stars" aria-hidden />
       {/* Planet */}
-      <div className="pointer-events-none absolute -bottom-[45vw] -right-[25vw] h-[80vw] w-[80vw] rounded-full bg-background planet-glow md:-bottom-[38vw] md:h-[60vw] md:w-[60vw]" aria-hidden />
+      <div className="hero-planet pointer-events-none absolute z-[1] -bottom-[45vw] -right-[25vw] h-[80vw] w-[80vw] rounded-full bg-background planet-glow md:-bottom-[38vw] md:h-[60vw] md:w-[60vw]" aria-hidden />
       {/* Astronaut */}
-      <div className="absolute inset-y-0 right-0 w-full lg:w-[55%]" aria-hidden>
+      <div className="hero-astronaut pointer-events-none absolute z-[1] inset-y-0 right-0 w-full lg:w-[42%]" aria-hidden>
         <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none">
           <path d="M55 48 C 70 60, 85 40, 110 70" stroke="var(--brand-teal-bright)" strokeOpacity="0.25" strokeWidth="0.15" vectorEffect="non-scaling-stroke" />
         </svg>
@@ -41,17 +42,17 @@ export function Hero() {
           <motion.img style={{ y: imgY }} src={astronautCut} alt="" width={1024} height={1024} className="absolute right-[-15%] top-[8%] w-[85%] opacity-40 sm:opacity-60" />
         )}
       </div>
-      <Container className="relative">
-        <div className="max-w-[960px]">
+      <Container className="hero-text relative z-10">
+        <div className="max-w-[760px] lg:max-w-[62%]">
           <Label className="mb-8">Where Brands Meet AI Creators.</Label>
           <Lines as="h1" className="type-hero" lines={[
-            <>Launch Your First <em>AI Film.</em></>,
-            <>Your First <em>AI Ad.</em></>,
+            <>Launch Your First <span>AI Film.</span></>,
+            <>Your First <span>AI Ad.</span></>,
             <span className="text-brand-teal-bright">Today.</span>,
           ]} />
           <Reveal delay={0.35}>
             <p className="mt-8 max-w-[56ch] text-[18px] leading-relaxed text-muted-foreground">Discover talented AI Filmmakers, AI Creators and visual storytellers. Turn your ideas into extraordinary brand films, advertisements and creative campaigns.</p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="cta-actions mt-10 flex flex-wrap gap-3">
               <MissionButton path="brand" className={btn()}>Register as a Brand <ArrowRight className="h-4 w-4" strokeWidth={1.5} /></MissionButton>
               <MissionButton path="creator" variant="outline" className={btn("outline")}>Join as an AI Creator</MissionButton>
             </div>
@@ -59,7 +60,7 @@ export function Hero() {
           </Reveal>
         </div>
       </Container>
-      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3" aria-hidden>
+      <div className="hero-scroll absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3" aria-hidden>
         <span className="eyebrow">Scroll</span>
         <span className="relative h-12 w-px overflow-hidden bg-hairline"><span className="absolute inset-0 animate-scrollline bg-foreground" /></span>
       </div>
@@ -88,7 +89,7 @@ export function JoinSection() {
   ];
   return (
     <Section>
-      <SectionHead n="01" label="Join" lines={["One Platform. Two Creative Worlds.", <em key="i">Infinite Possibilities.</em>]} intro="Whether you're a brand looking for creative talent or an AI creator looking for exciting opportunities, there's a place for you in JOMOVERSE." />
+      <SectionHead n="01" label="Join" lines={["One Platform. Two Creative Worlds.", <span key="i">Infinite Possibilities.</span>]} intro="Whether you're a brand looking for creative talent or an AI creator looking for exciting opportunities, there's a place for you in JOMOVERSE." />
       <div className="mt-20 grid border-t border-hairline md:grid-cols-2">
         {panels.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.1} className={`py-12 md:py-16 ${i === 0 ? "md:pr-14 md:border-r md:border-hairline" : "md:pl-14 border-t border-hairline md:border-t-0"}`}>
@@ -107,13 +108,13 @@ export function JoinSection() {
 export function UniverseSection() {
   return (
     <Section>
-      <SectionHead n="02" label="Universe" lines={["One Universe.", <em key="i">Infinite Creative Possibilities.</em>]} intro="Explore the different forms of AI-powered creativity." />
+      <SectionHead n="02" label="Universe" lines={["One Universe.", <span key="i">Infinite Creative Possibilities.</span>]} intro="Explore the different forms of AI-powered creativity." />
       <div className="mt-20 grid gap-px bg-hairline sm:grid-cols-2 lg:grid-cols-3">
         {universe.map((u, i) => (
           <Reveal key={u.n} delay={(i % 3) * 0.08} className="bg-background">
             <article className="group relative aspect-[3/4] overflow-hidden">
               <img src={u.image} alt={`${u.title} — cinematic still`} loading="lazy" width={768} height={1024} className="film-still h-full w-full object-cover transition-all duration-700 ease-cine group-hover:scale-[1.03] group-hover:brightness-110 group-hover:saturate-[0.8]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
               <span className="absolute left-6 top-6 text-xs font-medium text-brand-teal-bright">{u.n}</span>
               <div className="absolute inset-x-6 bottom-6">
                 <h3 className="font-display text-3xl">{u.title}</h3>
@@ -137,7 +138,7 @@ export function ProcessSection() {
   ];
   return (
     <Section>
-      <SectionHead n="03" label="Process" lines={["From Imagination", <em key="i">to Creation.</em>]} />
+      <SectionHead n="03" label="Process" lines={["From Imagination", <span key="i">to Creation.</span>]} />
       <div className="relative mt-24">
         <svg className="absolute left-0 top-12 hidden h-24 w-full md:block" viewBox="0 0 1000 100" preserveAspectRatio="none" fill="none" aria-hidden>
           <defs><linearGradient id="process-teal"><stop stopColor="var(--brand-teal)" /><stop offset="1" stopColor="var(--brand-teal-bright)" /></linearGradient></defs>
@@ -186,7 +187,7 @@ export function BrandsSection({ n = "04", showCta = true }: { n?: string; showCt
         <Reveal className="md:col-span-6"><FilmFrame /></Reveal>
         <div className="md:col-span-6">
           <Label>— {n} / For Brands</Label>
-          <Lines className="mt-8 type-section" lines={["Your Next Big Campaign", <>Could Be <em>AI-Powered.</em></>]} />
+          <Lines className="mt-8 type-section" lines={["Your Next Big Campaign", <>Could Be <span>AI-Powered.</span></>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">Why spend weeks searching for creative talent when the right AI creator could be just one click away?</p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE helps brands discover and hire talented AI creators and filmmakers to produce high-quality creative content.</p>
@@ -202,8 +203,8 @@ export function BrandsSection({ n = "04", showCta = true }: { n?: string; showCt
 
 function ProfileCard() {
   return (
-    <div className="border border-hairline bg-card p-6 md:p-8">
-      <div className="flex items-center gap-4">
+    <div className="border border-hairline bg-card p-6 md:p-8 overflow-hidden">
+      <div className="flex flex-wrap items-center gap-4">
         <div className="h-14 w-14 rounded-full border border-hairline bg-background" />
         <div><p className="type-card-name">Your Name</p><p className="text-sm text-muted-foreground">AI Filmmaker</p></div>
         <span className="ml-auto flex items-center gap-2 rounded-[3px] border border-brand-teal-bright/50 bg-brand-teal-deep/25 px-2.5 py-1 text-[11px] tracking-[0.1em] text-brand-teal-bright"><span className="h-1.5 w-1.5 rounded-full bg-brand-teal-bright" />Open to projects</span>
@@ -227,7 +228,7 @@ export function CreatorsSection({ n = "05", showCta = true }: { n?: string; show
       <div className="grid items-center gap-16 md:grid-cols-12">
         <div className="order-2 md:order-1 md:col-span-6">
           <Label>— {n} / For Creators</Label>
-          <Lines className="mt-8 type-section" lines={["Your Talent. Your Portfolio.", <em key="i">Your Next Big Opportunity.</em>]} />
+          <Lines className="mt-8 type-section" lines={["Your Talent. Your Portfolio.", <span key="i">Your Next Big Opportunity.</span>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">You have the skills. You have the imagination. Now find the brands and opportunities that need your talent.</p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE gives AI creators a platform to showcase their work, build their professional identity and connect with brands worldwide.</p>
@@ -244,14 +245,14 @@ export function CreatorsSection({ n = "05", showCta = true }: { n?: string; show
 
 export function CommunitySection({ showCta = true }: { showCta?: boolean }) {
   return (
-    <section className="relative overflow-hidden py-24 md:py-40">
-      <div className="pointer-events-none absolute right-[-20%] top-1/2 h-[700px] w-[700px] -translate-y-1/2 opacity-70 md:right-[-8%]" aria-hidden>
+    <section className="space-dark relative overflow-hidden py-24 md:py-40"><div className="space-stars" aria-hidden /><div className="grain absolute inset-0 pointer-events-none" aria-hidden />
+      <div className="community-globe pointer-events-none absolute z-[1] right-[-20%] top-1/2 h-[700px] w-[700px] -translate-y-1/2 opacity-70 md:right-[-8%]" aria-hidden>
         <ClientOnly fallback={null}><Suspense fallback={null}><Globe /></Suspense></ClientOnly>
       </div>
-      <Container className="relative">
+      <Container className="relative z-10">
         <div className="max-w-[720px]">
           <Label>— 06 / Community</Label>
-          <Lines className="mt-8 type-section" lines={["More Than a Marketplace.", <em key="i">A Creative Movement.</em>]} />
+          <Lines className="mt-8 type-section" lines={["More Than a Marketplace.", <span key="i">A Creative Movement.</span>]} />
           <Reveal delay={0.2}>
             <p className="mt-8 text-[18px] leading-relaxed">The future of filmmaking and advertising won't be built by technology alone. It will be built by people who know how to use it creatively.</p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">JOMOVERSE is building a global community where AI creators learn, share, collaborate, experiment and grow together.</p>
@@ -272,7 +273,7 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
   useEffect(() => { const k = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null); window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, []);
   return (
     <Section>
-      <SectionHead n="07" label="Showcase" lines={["Creativity", <em key="i">Without Limits.</em>]} intro="Explore what happens when imagination meets AI." intro2="Discover inspiring work from emerging AI creators and filmmakers." />
+      <SectionHead n="07" label="Showcase" lines={["Creativity", <span key="i">Without Limits.</span>]} intro="Explore what happens when imagination meets AI." intro2="Discover inspiring work from emerging AI creators and filmmakers." />
       <div className="mt-16 flex flex-wrap gap-x-6 gap-y-3 border-b border-hairline pb-4" role="tablist">
         {["All", ...showcaseCategories].map((c) => (
           <button key={c} role="tab" aria-selected={cat === c} onClick={() => setCat(c)} className={`relative pb-2 text-[14px] transition-colors ${cat === c ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}>
@@ -285,7 +286,7 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
           {items.map((s) => (
             <motion.button layout key={s.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5, ease: EASE }} onClick={() => setOpen(s)} className={`group relative mb-4 block w-full overflow-hidden border border-hairline text-left transition-colors hover:border-foreground/30 ${s.ratio === "16:9" ? "aspect-video" : "aspect-[9/16]"}`}>
               <img src={s.image} alt={`${s.category} by ${s.creator}`} loading="lazy" className="film-still h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               <span className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-foreground/50 opacity-70 transition-opacity group-hover:opacity-100"><Play className="h-5 w-5" strokeWidth={1.5} /></span>
               <div className="absolute inset-x-5 bottom-5"><p className="eyebrow">{s.category}</p><p className="mt-1 text-[15px]">{s.creator}</p></div>
             </motion.button>
@@ -295,10 +296,10 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
       {showCta && <div className="mt-12"><Link to="/showcase" className={btn("outline")}>Explore the Creative Universe</Link></div>}
       <AnimatePresence>
         {open && (
-          <motion.div role="dialog" aria-modal aria-label={open.category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[70] flex items-center justify-center bg-background/95 p-6" onClick={() => setOpen(null)}>
+          <motion.div role="dialog" aria-modal aria-label={open.category} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center bg-background/95 p-6" onClick={() => setOpen(null)}>
             <button className="absolute right-6 top-6" onClick={() => setOpen(null)} aria-label="Close"><X className="h-7 w-7" strokeWidth={1.5} /></button>
-            <div className="max-h-[85vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
-              {open.video ? <video src={open.video} controls autoPlay className="max-h-[80vh]" /> : <img src={open.image} alt={open.category} className="max-h-[80vh] w-auto" />}
+            <div className="max-h-[85dvh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+              {open.video ? <video src={open.video} controls autoPlay className="max-h-[80dvh]" /> : <img src={open.image} alt={open.category} className="max-h-[80dvh] w-auto" />}
               <p className="eyebrow mt-4">{open.category} · {open.creator}</p>
             </div>
           </motion.div>
@@ -310,15 +311,15 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
 
 export function FinalCTA() {
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden py-32">
+    <section className="space-dark relative flex min-h-[800px] items-center overflow-hidden py-32"><div className="space-stars" aria-hidden /><div className="grain absolute inset-0 pointer-events-none" aria-hidden />
       <div className="pointer-events-none absolute -bottom-[150vw] left-1/2 h-[180vw] w-[180vw] -translate-x-1/2 rounded-full bg-background horizon-glow md:-bottom-[160vw]" aria-hidden />
-      <motion.img src={astronautCut} alt="" aria-hidden loading="lazy" width={1024} height={1024} className="pointer-events-none absolute left-1/2 top-[14%] w-24 -translate-x-1/2 opacity-80 md:w-32" animate={{ y: [0, -10, 0], rotate: [-4, 4, -4] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
-      <Container className="relative text-center">
-        <Lines className="mx-auto max-w-[1100px] type-section" lines={["The Future of Creativity Is", "Being Created Right Now.", <em key="i" className="text-brand-teal-bright">Be Part of It.</em>]} />
+      <motion.img src={astronautCut} alt="" aria-hidden loading="lazy" width={1024} height={1024} className="pointer-events-none absolute left-1/2 top-[5%] w-24 -translate-x-1/2 opacity-80 md:w-32" animate={{ y: [0, -10, 0], rotate: [-4, 4, -4] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
+      <Container className="relative z-10 text-center">
+        <Lines className="mx-auto max-w-[1100px] type-section" lines={["The Future of Creativity Is", "Being Created Right Now.", <span key="i" className="text-brand-teal-bright">Be Part of It.</span>]} />
         <Reveal delay={0.3}>
           <p className="mx-auto mt-10 max-w-[56ch] text-[18px]">Join the brands shaping tomorrow and the creators making it possible.</p>
           <p className="mx-auto mt-3 max-w-[60ch] text-muted-foreground">Whether you're looking to hire exceptional creative talent or showcase your AI filmmaking skills, your universe starts here.</p>
-          <div className="mt-12 flex flex-wrap justify-center gap-3">
+          <div className="cta-actions mt-12 flex flex-wrap justify-center gap-3">
             <MissionButton path="brand" className={btn()}>I'm a Brand</MissionButton>
             <MissionButton path="creator" variant="outline" className={btn("outline")}>I'm an AI Creator</MissionButton>
           </div>
@@ -330,7 +331,7 @@ export function FinalCTA() {
 
 export function PageIntro({ label, lines, sub }: { label: string; lines: React.ReactNode[]; sub?: string }) {
   return (
-    <section className="pb-16 pt-40 md:pt-52">
+    <section className="pb-16 pt-16 md:pt-24">
       <Container>
         <Label>{label}</Label>
         <Lines as="h1" className="mt-8 max-w-[1100px] type-hero" lines={lines} />

@@ -1,0 +1,1 @@
+CREATE POLICY "Read visible creator photos" ON storage.objects FOR SELECT TO anon,authenticated USING (bucket_id='creator-avatars' AND EXISTS (SELECT 1 FROM public.public_creators c WHERE c.is_visible AND c.avatar_url=storage.objects.name));

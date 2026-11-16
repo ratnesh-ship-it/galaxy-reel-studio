@@ -64,49 +64,165 @@ export type Database = {
       }
       creator_registrations: {
         Row: {
+          avatar_url: string | null
           created_at: string
+          creator_number: number | null
           email: string
           experience: string | null
           full_name: string
           id: string
+          is_visible: boolean
           location: string | null
           mission_code: string | null
           phone: string
           portfolio_url: string | null
+          public_id: string | null
           source_page: string | null
           speciality: string | null
           tools: string[]
           utm_params: Json | null
         }
         Insert: {
+          avatar_url?: string | null
           created_at?: string
+          creator_number?: number | null
           email: string
           experience?: string | null
           full_name: string
           id?: string
+          is_visible?: boolean
           location?: string | null
           mission_code?: string | null
           phone: string
           portfolio_url?: string | null
+          public_id?: string | null
           source_page?: string | null
           speciality?: string | null
           tools?: string[]
           utm_params?: Json | null
         }
         Update: {
+          avatar_url?: string | null
           created_at?: string
+          creator_number?: number | null
           email?: string
           experience?: string | null
           full_name?: string
           id?: string
+          is_visible?: boolean
           location?: string | null
           mission_code?: string | null
           phone?: string
           portfolio_url?: string | null
+          public_id?: string | null
           source_page?: string | null
           speciality?: string | null
           tools?: string[]
           utm_params?: Json | null
+        }
+        Relationships: []
+      }
+      hire_requests: {
+        Row: {
+          brand_name: string
+          budget: string
+          business_email: string
+          contact_person: string
+          created_at: string
+          creator_public_id: string
+          id: string
+          phone: string
+          project_details: string
+        }
+        Insert: {
+          brand_name: string
+          budget: string
+          business_email: string
+          contact_person: string
+          created_at?: string
+          creator_public_id: string
+          id?: string
+          phone: string
+          project_details: string
+        }
+        Update: {
+          brand_name?: string
+          budget?: string
+          business_email?: string
+          contact_person?: string
+          created_at?: string
+          creator_public_id?: string
+          id?: string
+          phone?: string
+          project_details?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hire_requests_creator_public_id_fkey"
+            columns: ["creator_public_id"]
+            isOneToOne: false
+            referencedRelation: "public_creators"
+            referencedColumns: ["public_id"]
+          },
+        ]
+      }
+      public_creators: {
+        Row: {
+          ai_tools: string[]
+          avatar_url: string | null
+          city_country: string | null
+          created_at: string
+          creator_number: number
+          experience_level: string | null
+          full_name: string
+          is_visible: boolean
+          portfolio_link: string | null
+          primary_speciality: string | null
+          public_id: string
+        }
+        Insert: {
+          ai_tools?: string[]
+          avatar_url?: string | null
+          city_country?: string | null
+          created_at?: string
+          creator_number: number
+          experience_level?: string | null
+          full_name: string
+          is_visible?: boolean
+          portfolio_link?: string | null
+          primary_speciality?: string | null
+          public_id: string
+        }
+        Update: {
+          ai_tools?: string[]
+          avatar_url?: string | null
+          city_country?: string | null
+          created_at?: string
+          creator_number?: number
+          experience_level?: string | null
+          full_name?: string
+          is_visible?: boolean
+          portfolio_link?: string | null
+          primary_speciality?: string | null
+          public_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -115,7 +231,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      creator_launch_id: { Args: { launch_code: string }; Returns: string }
+      is_jv_admin: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

@@ -7,7 +7,7 @@ export function FormQuestion({ children }: { children: ReactNode }) {
   return <h1 tabIndex={-1} className="type-question mb-8">{children}</h1>;
 }
 export function FormInput({ className, ...props }: ComponentProps<'input'>) {
-  return <input className={cn('type-answer min-w-0 w-full border-0 border-b border-input bg-transparent py-4 outline-none placeholder:text-foreground/40 focus:border-brand-teal-bright', className)} {...props} />;
+  return <input className={cn('type-answer min-w-0 w-full border-0 border-b border-input bg-transparent py-4 outline-none placeholder:text-muted-foreground focus:border-brand-teal-bright', className)} {...props} />;
 }
 export function FormLabel({ className, ...props }: ComponentProps<'span'>) {
   return <span className={cn('eyebrow', className)} {...props} />;
