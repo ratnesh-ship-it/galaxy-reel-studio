@@ -1,0 +1,1 @@
+ALTER POLICY "Read visible creator photos" ON storage.objects TO authenticated USING (bucket_id = 'creator-avatars' AND owner_id = (SELECT auth.uid()::text));

@@ -29,6 +29,13 @@
       "when": 1794804487672,
       "tag": "0003_visible_creator_avatar_reads",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794806517848,
+      "tag": "0004_owner_bound_creator_avatar_reads",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useServerFn } from '@tanstack/react-start';
 import { ArrowUpRight } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { creatorsQuery, safePortfolio, type PublicCreator, latestCreators } from '@/lib/creators';
@@ -8,9 +9,11 @@ import { experienceLevels } from '@/config/forms';
 import { Button } from '@/components/ui/button';
 import { MissionButton } from '@/components/mission/MissionEntry';
 import { Section, Label } from './ui';
+import { getCreatorAvatar } from '@/lib/creator-avatar.functions';
 export function CreatorAvatar({creator,large=false}:{creator:PublicCreator;large?:boolean}) {
  const [url,setUrl]=useState<string|null>(null);
- useEffect(()=>{ let active=true; if(!creator.avatar_url)return; void supabase.storage.from('creator-avatars').createSignedUrl(creator.avatar_url,3600).then(({data})=>{if(active)setUrl(data?.signedUrl??null);});return()=>{active=false;}; },[creator.avatar_url]);
+ const fetchAvatar=useServerFn(getCreatorAvatar);
+ useEffect(()=>{ let active=true; setUrl(null); if(!creator.avatar_url)return; const load=()=>{void fetchAvatar({data:{publicId:creator.public_id}}).then(photo=>{if(active)setUrl(photo);}).catch(()=>{if(active)setUrl(null);});}; load(); const refresh=setInterval(load,240000);return()=>{active=false;clearInterval(refresh);}; },[creator.public_id,creator.avatar_url,fetchAvatar]);
  return <div className={`${large?'h-40 w-40 text-4xl':'h-20 w-20 text-2xl'} shrink-0 overflow-hidden rounded-full bg-muted text-brand-teal-bright flex items-center justify-center font-semibold`}>{url?<img src={url} alt={creator.full_name} className="size-full object-cover" onError={()=>setUrl(null)}/>:creator.full_name.split(/\s+/).slice(0,2).map(n=>n[0]).join('').toUpperCase()}</div>;
 }
 export function CreatorCard({creator:c}:{creator:PublicCreator}) {
