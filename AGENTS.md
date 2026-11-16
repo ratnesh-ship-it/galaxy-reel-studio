@@ -45,3 +45,5 @@ use the editor.
 - Avatar storage is private under workspace policy; only photos linked to visible profiles may be signed for display.
 - /creators is an Outlet layout with its marketing index and public-ID child pages to avoid path conflicts.
 - Overlay layers are portalled above page stacking contexts; menu locks html/body scroll and closes on Escape, navigation, or link taps.
+
+- Public creator realtime subscriptions invalidate the shared directory query, with periodic refetch as a reconnect fallback so counts and cards recover from missed events.

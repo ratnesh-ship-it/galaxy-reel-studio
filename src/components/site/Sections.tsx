@@ -245,7 +245,7 @@ export function CreatorsSection({ n = "05", showCta = true }: { n?: string; show
 
 export function CommunitySection({ showCta = true }: { showCta?: boolean }) {
   return (
-    <section className="space-dark relative overflow-hidden py-24 md:py-40"><div className="space-stars" aria-hidden /><div className="grain absolute inset-0 pointer-events-none" aria-hidden />
+    <section className="space-dark relative overflow-hidden py-24 md:py-40"><div className="space-stars" aria-hidden />
       <div className="community-globe pointer-events-none absolute z-[1] right-[-20%] top-1/2 h-[700px] w-[700px] -translate-y-1/2 opacity-70 md:right-[-8%]" aria-hidden>
         <ClientOnly fallback={null}><Suspense fallback={null}><Globe /></Suspense></ClientOnly>
       </div>
@@ -311,7 +311,7 @@ export function ShowcaseSection({ showCta = true }: { showCta?: boolean }) {
 
 export function FinalCTA() {
   return (
-    <section className="space-dark relative flex min-h-[800px] items-center overflow-hidden py-32"><div className="space-stars" aria-hidden /><div className="grain absolute inset-0 pointer-events-none" aria-hidden />
+    <section className="space-dark relative flex min-h-[800px] items-center overflow-hidden py-32"><div className="space-stars" aria-hidden />
       <div className="pointer-events-none absolute -bottom-[150vw] left-1/2 h-[180vw] w-[180vw] -translate-x-1/2 rounded-full bg-background horizon-glow md:-bottom-[160vw]" aria-hidden />
       <motion.img src={astronautCut} alt="" aria-hidden loading="lazy" width={1024} height={1024} className="pointer-events-none absolute left-1/2 top-[5%] w-24 -translate-x-1/2 opacity-80 md:w-32" animate={{ y: [0, -10, 0], rotate: [-4, 4, -4] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }} />
       <Container className="relative z-10 text-center">

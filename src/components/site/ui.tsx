@@ -5,8 +5,8 @@ export const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const btn = (v: "primary" | "outline" = "primary") =>
   v === "primary"
-    ? "inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover "
-    : "inline-flex items-center justify-center gap-2 rounded-md border border-foreground px-6 py-3.5 text-base font-semibold text-foreground transition-all duration-300 hover:-translate-y-px hover:bg-foreground hover:text-background";
+    ? "inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:-translate-y-px hover:bg-primary-hover hover:glow-teal "
+    : "inline-flex items-center justify-center gap-2 rounded-md border border-brand-teal-bright px-6 py-3.5 text-base font-semibold text-brand-teal-bright transition-all duration-300 hover:-translate-y-px hover:bg-primary hover:text-primary-foreground";
 
 export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <p className={`eyebrow text-brand-teal-bright ${className}`}>{children}</p>;

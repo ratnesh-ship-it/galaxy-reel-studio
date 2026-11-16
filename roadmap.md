@@ -9,3 +9,5 @@
 - [x] Fix menu layering and audit all pages at six requested widths.
 - [x] Add safe public creators, optional avatars, live directory and profiles.
 - [x] Add private hiring enquiries and verify registration/public privacy end to end.
+- [x] Apply soft charcoal/teal theme and logo-only home navigation.
+- [x] Verify existing creator directory updates; test registration privacy and mobile layouts. Temporary JV-0006 hidden after QA.

@@ -10,7 +10,6 @@ import { Container, btn, EASE } from "./ui";
 const Starfield = lazy(() => import("@/components/three/Starfield"));
 
 export const nav = [
-  { to: "/", label: "Home" },
   { to: "/discover", label: "Discover Creators" },
   { to: "/showcase", label: "AI Films & Ads" },
   { to: "/brands", label: "For Brands" },
@@ -25,7 +24,7 @@ export function BrandLogo({ className = "h-[18px] w-auto md:h-[22px]" }: { class
 
 export function Wordmark() {
   return (
-    <Link to="/" className="flex items-center gap-2.5" aria-label="JOMOVERSE home">
+    <Link to="/" className="flex items-center gap-2.5" aria-label="JOMOVERSE home" onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}>
       <span className="nav-logo relative block"><BrandLogo /><span className="nav-logo-teal absolute inset-0" aria-hidden /></span>
     </Link>
   );
@@ -59,7 +58,7 @@ export function SiteHeader() {
         {open && createPortal(
           <div role="dialog" aria-modal="true" aria-label="Navigation menu" className="fixed inset-0 z-[100] flex h-[100dvh] flex-col overflow-y-auto bg-background">
             <Container className="flex h-16 md:h-[72px] items-center justify-between">
-              <Wordmark />
+              <div onClick={() => setOpen(false)}><Wordmark /></div>
               <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close menu"><X className="h-6 w-6" strokeWidth={1.5} /></Button>
             </Container>
             <Container className="flex flex-1 flex-col justify-center gap-3 py-6">
@@ -86,7 +85,7 @@ export function SiteFooter() {
       <Container>
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <BrandLogo className="mb-6 h-7 w-auto" />
+            <div className="mb-6"><Wordmark /></div>
             <p className="font-display text-3xl">Where Brands Meet <span>AI Creators.</span></p>
             <p className="mt-4 max-w-sm text-muted-foreground">Connecting brands with the next generation of AI-powered creative talent.</p>
           </div>
