@@ -20,3 +20,5 @@
 - [x] Add admin-only registration management, safe deletion, audit log and exports.
 - [x] Verify signed-in admin pages, non-admin denial, anonymous privacy, hide/show/edit/delete/export and audit readback; all 31 tests pass.
 - [ ] Activate the admin invitation/reset link on the published site — waiting for publication; inbox delivery is not independently verified.
+- [x] Polish admin navigation, tables, detail cards, overview and dialogs without changing data or security.
+- [x] Verify signed-in admin layouts at 1440px and 390px, menus, editing, bulk selection and delete confirmation; 31 tests passed. No existing records modified or deleted.

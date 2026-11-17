@@ -50,5 +50,6 @@ use the editor.
 
 - Public creator realtime subscriptions invalidate the shared directory query, with periodic refetch as a reconnect fallback so counts and cards recover from missed events.
 - Admin pages use a separate shell under a session-and-membership route gate; every private operation is independently enforced by RLS or an authenticated server check.
+- Admin presentation shares field labels, date formatting, truncation tooltips and status pills; keep styling scoped to the private workspace so public pages do not change.
 - Admin membership references user UUIDs without managed-schema foreign keys; only privileged invitation handlers manage membership, while database triggers audit private record mutations and remove deleted public profiles atomically.
 - Vercel builds (VERCEL env set) switch the server output to the vercel preset in vite.config.ts; Lovable builds force their own target, so both hosts build from the same code. Never add an index.html rewrite.
