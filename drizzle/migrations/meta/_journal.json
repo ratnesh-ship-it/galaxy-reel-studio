@@ -50,6 +50,13 @@
       "when": 1794926593423,
       "tag": "0006_private_admin_panel",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1794927103146,
+      "tag": "0007_tighten_admin_public_grants",
+      "breakpoints": true
     }
   ]
 }
