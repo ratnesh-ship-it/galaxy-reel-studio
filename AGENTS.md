@@ -42,7 +42,9 @@ use the editor.
 - Define typography scales in the global Tailwind v4 theme/utilities and load fonts once in the root head; shared mission typography primitives and Radix Select keep all registration entry points and card exports consistent.
 
 - Publish creator data through the trigger-synced public_creators table with explicit safe-column projections; private contacts never enter directory queries.
-- Avatar storage is private; direct client reads are owner-bound, while a server function signs only the photo resolved from a visible public creator ID for five minutes so public display never grants broad storage access.
+- Public creator identities use the shared mythic avatar catalog and approved-column grants; uploaded private photos and real names never enter public reads.
+- Registration step totals derive from each path, so avatar steps do not skip validation or review.
+- Flexible link values are stored verbatim and normalized only for safe external display.
 - /creators is an Outlet layout with its marketing index and public-ID child pages to avoid path conflicts.
 - Overlay layers are portalled above page stacking contexts; menu locks html/body scroll and closes on Escape, navigation, or link taps.
 

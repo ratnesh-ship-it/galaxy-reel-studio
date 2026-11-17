@@ -25,9 +25,9 @@ export const showcase: ShowcaseItem[] = [
 
 export const universe = [
   { n: "01", title: "AI Films", desc: "Commercials, short films and storytelling.", image: film },
-  { n: "02", title: "AI Advertisements", desc: "High-impact visual brand campaigns.", image: product },
+  { n: "02", title: "AI Ads", desc: "High-impact visual brand campaigns.", image: product },
   { n: "03", title: "AI Visual Art", desc: "Product visuals and creative imagery.", image: music },
   { n: "04", title: "AI Animation", desc: "Characters, motion graphics and digital worlds.", image: animation },
-  { n: "05", title: "AI Influencer Content", desc: "AI-powered personalities and campaigns.", image: fashion },
-  { n: "06", title: "AI Product Commercials", desc: "Innovative product storytelling.", image: short },
+  { n: "05", title: "AI Influencers", desc: "AI-powered personalities and campaigns.", image: fashion },
+  { n: "06", title: "AI Commercials", desc: "Innovative product storytelling.", image: short },
 ];

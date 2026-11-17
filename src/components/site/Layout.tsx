@@ -15,7 +15,6 @@ export const nav = [
   { to: "/brands", label: "For Brands" },
   { to: "/creators", label: "For Creators" },
   { to: "/community", label: "Community" },
-  { to: "/about", label: "About Us" },
 ] as const;
 
 export function BrandLogo({ className = "h-[18px] w-auto md:h-[22px]" }: { className?: string }) {
@@ -78,7 +77,6 @@ export function SiteFooter() {
   const cols = [
     { h: "Platform", l: [["/discover", "Discover Creators"], ["/showcase", "AI Films & Ads"], ["/community", "Community"]] },
     { h: "Join", l: [["/brands", "For Brands"], ["/creators", "For Creators"]] },
-    { h: "Company", l: [["/about", "About Us"], ["/about", "Contact"]] },
   ] as const;
   return (
     <footer className="space-dark relative z-10 border-t border-hairline pt-20">
@@ -86,8 +84,7 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="mb-6"><Wordmark /></div>
-            <p className="font-display text-3xl">Where Brands Meet <span>AI Creators.</span></p>
-            <p className="mt-4 max-w-sm text-muted-foreground">Connecting brands with the next generation of AI-powered creative talent.</p>
+            <p className="font-display text-3xl">Where Brands Meet <span>AI Creators</span></p>
           </div>
           {cols.map((c) => (
             <div key={c.h} className="md:col-span-2">
@@ -106,6 +103,7 @@ export function SiteFooter() {
       <Container className="mt-16"><Watermark /></Container>
       <Container className="flex flex-col gap-2 border-t border-hairline py-6 text-sm text-muted-foreground md:flex-row md:justify-between">
         <span>© 2026 JOMOVERSE. All rights reserved.</span>
+        <a href="mailto:" className="hover:text-brand-teal-bright">Contact</a>
         <span>Astronaut 3D model by Poly by Google, licensed CC-BY 3.0.</span>
       </Container>
     </footer>
@@ -152,5 +150,5 @@ function SmoothScroll() {
 }
 
 export function SpaceBackdrop() {
- return <ClientOnly fallback={null}><Cursor /></ClientOnly>;
+ return null;
 }

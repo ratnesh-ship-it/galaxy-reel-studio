@@ -173,3 +173,12 @@ main > section:nth-of-type(even) { background-color: var(--bg-soft); }
 input:not([type="file"]), textarea, select, [data-slot="select-trigger"] { background-color: var(--surface); }
 .creator-card:hover { border-color: var(--teal-bright); }
 html * { font-style: normal; }
+
+.hero-headline { font-size:40px; line-height:1.05; letter-spacing:0; font-weight:600; }
+.hero-headline > span { display:block; }
+@media(min-width:768px) { .hero-headline { font-size:clamp(40px,5.2vw,78px); } .hero-headline > span { white-space:nowrap; } }
+@media(min-width:768px) and (max-width:1023px) { .hero-text { padding-top:80px; padding-bottom:80px; } }
+@media(min-width:1024px) { .hero-light { min-height:620px; } }
+.avatar-option:hover { box-shadow:var(--shadow-teal); }
+
+@media(max-width:767px) { .hero-light .hero-astronaut { height:220px; } .hero-light .hero-astronaut img { width:220px; height:220px; } }

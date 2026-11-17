@@ -11,3 +11,8 @@
 - [x] Add private hiring enquiries and verify registration/public privacy end to end.
 - [x] Apply soft charcoal/teal theme and logo-only home navigation.
 - [x] Verify existing creator directory updates; test registration privacy and mobile layouts. Temporary JV-0006 hidden after QA.
+- [x] Simplify Home and inner pages, remove About content, and fix headline/cursor.
+- [x] Accept and safely display flexible links without changing typed values.
+- [x] Add 69 mythic avatars, picker, private-name storage and public identities; portraits are cropped 512px assets, not high-resolution masters.
+- [x] Verify registration, public response privacy, link handling and all pages at 360/390/768/1024/1440/1920px; hide temporary Ravana JV-0007 after QA.
+- [ ] Complete footer Contact destination — waiting for the user's real email address.

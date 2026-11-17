@@ -64,6 +64,7 @@ export type Database = {
       }
       creator_registrations: {
         Row: {
+          avatar_slug: string
           avatar_url: string | null
           created_at: string
           creator_number: number | null
@@ -83,6 +84,7 @@ export type Database = {
           utm_params: Json | null
         }
         Insert: {
+          avatar_slug?: string
           avatar_url?: string | null
           created_at?: string
           creator_number?: number | null
@@ -102,6 +104,7 @@ export type Database = {
           utm_params?: Json | null
         }
         Update: {
+          avatar_slug?: string
           avatar_url?: string | null
           created_at?: string
           creator_number?: number | null
@@ -133,6 +136,7 @@ export type Database = {
           id: string
           phone: string
           project_details: string
+          website: string | null
         }
         Insert: {
           brand_name: string
@@ -144,6 +148,7 @@ export type Database = {
           id?: string
           phone: string
           project_details: string
+          website?: string | null
         }
         Update: {
           brand_name?: string
@@ -155,6 +160,7 @@ export type Database = {
           id?: string
           phone?: string
           project_details?: string
+          website?: string | null
         }
         Relationships: [
           {
@@ -169,6 +175,9 @@ export type Database = {
       public_creators: {
         Row: {
           ai_tools: string[]
+          avatar_category: string
+          avatar_name: string
+          avatar_slug: string
           avatar_url: string | null
           city_country: string | null
           created_at: string
@@ -182,6 +191,9 @@ export type Database = {
         }
         Insert: {
           ai_tools?: string[]
+          avatar_category?: string
+          avatar_name?: string
+          avatar_slug?: string
           avatar_url?: string | null
           city_country?: string | null
           created_at?: string
@@ -195,6 +207,9 @@ export type Database = {
         }
         Update: {
           ai_tools?: string[]
+          avatar_category?: string
+          avatar_name?: string
+          avatar_slug?: string
           avatar_url?: string | null
           city_country?: string | null
           created_at?: string
@@ -231,6 +246,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      avatar_identity: { Args: { slug: string }; Returns: Json }
       creator_launch_id: { Args: { launch_code: string }; Returns: string }
       is_jv_admin: { Args: never; Returns: boolean }
     }
