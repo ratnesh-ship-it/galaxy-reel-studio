@@ -9,7 +9,7 @@ export const getCreatorAvatar = createServerFn({ method: 'GET' })
   .handler(async ({ data }): Promise<string | null> => {
     const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
     const url = process.env['SUPABASE_URL'];
-    if (!key || !url) return null;
+    if (!key || !url) { console.error(`[JOMOVERSE] Missing environment variable ${!url ? 'SUPABASE_URL' : 'SUPABASE_PUBLISHABLE_KEY'}.`); return null; }
     const publicClient = createClient<Database>(url, key, {
       auth: { persistSession: false, autoRefreshToken: false },
       global: { fetch: (input, init) => {
