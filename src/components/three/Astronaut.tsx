@@ -1,12 +1,28 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, Lightformer } from "@react-three/drei";
-import { Suspense, useRef, type MutableRefObject } from "react";
+import { Component, Suspense, useRef, type MutableRefObject, type ReactNode } from "react";
 import * as THREE from "three";
 import asset from "@/assets/Astronaut.glb.asset.json";
 import { sceneColor } from "./sceneTheme";
 
+// The model lives in Lovable's file storage (/__l5e/...), which only exists on Lovable hosting.
+// On any other host (e.g. Vercel) load it from the published Lovable site instead.
+const LOVABLE_ORIGIN = "https://galaxy-reel-studio.lovable.app";
+const MODEL_URL =
+  typeof window !== "undefined" && !window.location.hostname.endsWith("lovable.app")
+    ? LOVABLE_ORIGIN + asset.url
+    : asset.url;
+
+// If the 3D model can't load, show nothing instead of crashing the whole page.
+class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error: unknown) { console.warn("[JOMOVERSE] Astronaut model failed to load; hiding it.", error); }
+  render() { return this.state.failed ? null : this.props.children; }
+}
+
 function Model({ scrollRef }: { scrollRef: MutableRefObject<number> }) {
-  const { scene } = useGLTF(asset.url);
+  const { scene } = useGLTF(MODEL_URL);
   const ref = useRef<THREE.Group>(null);
   useFrame((state, delta) => {
     const g = ref.current; if (!g) return;
@@ -34,7 +50,7 @@ export default function Astronaut({ scrollRef }: { scrollRef: MutableRefObject<n
         <Lightformer intensity={0.3} position={[-4, 0, 1]} rotation-y={Math.PI / 2} scale={[8, 1, 1]} color={bright} />
         <Lightformer intensity={0.8} position={[4, 0, 1]} rotation-y={-Math.PI / 2} scale={[8, 1, 1]} color={teal} />
       </Environment>
-      <Suspense fallback={null}><Model scrollRef={scrollRef} /></Suspense>
+      <ModelBoundary><Suspense fallback={null}><Model scrollRef={scrollRef} /></Suspense></ModelBoundary>
     </Canvas>
   );
 }
