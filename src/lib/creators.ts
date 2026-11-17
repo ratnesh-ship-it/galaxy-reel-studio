@@ -3,9 +3,17 @@ import { supabase } from '@/integrations/supabase/client';
 export const publicCreatorFields = 'public_id,creator_number,avatar_slug,avatar_name,avatar_category,city_country,primary_speciality,ai_tools,experience_level,portfolio_link,created_at' as const;
 export type PublicCreator = { public_id:string; creator_number:number; avatar_slug:string; avatar_name:string; avatar_category:string; city_country:string|null; primary_speciality:string|null; ai_tools:string[]; experience_level:string|null; portfolio_link:string|null; created_at:string };
 export const creatorsQuery = queryOptions({ queryKey:['public-creators'], refetchInterval:15000, refetchOnWindowFocus:true, queryFn:async():Promise<PublicCreator[]> => {
- const {data,error}=await supabase.from('public_creators').select(publicCreatorFields).order('creator_number');
- if(error) throw new Error('The creators could not load. Please try again.');
- return data ?? [];
+ const isServer = typeof window === 'undefined';
+ try {
+  const {data,error}=await supabase.from('public_creators').select(publicCreatorFields).order('creator_number');
+  if(error) throw error;
+  return data ?? [];
+ } catch (err) {
+  // Some hosts (e.g. Vercel) can't reach the backend from the server. Never crash the page:
+  // render with an empty list on the server and let the browser load the real creators on mount.
+  if (isServer) { console.error('[JOMOVERSE] Creators could not load during server render; the browser will retry.', err); return []; }
+  throw new Error('The creators could not load. Please try again.');
+ }
 }});
 export function safePortfolio(value:string|null) {
  if(!value) return null;
