@@ -1,0 +1,16 @@
+import { Link, Outlet, useNavigate, useRouter, useLocation } from '@tanstack/react-router';
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { LayoutDashboard, Users, Building2, Inbox, Shield, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { BrandLogo } from '@/components/site/Layout';
+import { supabase } from '@/integrations/supabase/client';
+import { adminUser, idleExpired } from '@/lib/admin';
+const links=[{to:'/admin/overview',label:'Overview',icon:LayoutDashboard},{to:'/admin/creators',label:'Creators',icon:Users},{to:'/admin/brands',label:'Brands',icon:Building2},{to:'/admin/hire-requests',label:'Hire Requests',icon:Inbox},{to:'/admin/admins',label:'Admins',icon:Shield}] as const;
+export function AdminShell(){
+ const navigate=useNavigate(); const router=useRouter(); const queryClient=useQueryClient(); const location=useLocation(); const [email,setEmail]=useState('');
+ async function logout(){await queryClient.cancelQueries();queryClient.clear();await supabase.auth.signOut();await navigate({to:'/admin',replace:true});}
+ useEffect(()=>{let last=Date.now();let leaving=false;adminUser().then(user=>setEmail(user?.email??''));const touch=()=>{if(idleExpired(last,Date.now())){if(!leaving){leaving=true;void logout();}}else last=Date.now();};const timer=setInterval(()=>{if(idleExpired(last,Date.now())&&!leaving){leaving=true;void logout();}},1000);const events=['pointerdown','keydown','scroll','touchstart'];events.forEach(event=>window.addEventListener(event,touch,{passive:true}));const {data}=supabase.auth.onAuthStateChange(event=>{if(!['SIGNED_IN','SIGNED_OUT','USER_UPDATED'].includes(event))return;void router.invalidate();if(event!=='SIGNED_OUT')void queryClient.invalidateQueries();});return()=>{clearInterval(timer);events.forEach(event=>window.removeEventListener(event,touch));data.subscription.unsubscribe();};},[]);
+ return <div className="admin-shell"><aside className="admin-sidebar"><BrandLogo className="w-40 h-auto"/><div className="mt-6 text-xs uppercase text-muted-foreground">Team workspace</div><nav className="mt-6 flex flex-col gap-1">{links.map(({to,label,icon:Icon})=><Button key={to} variant={location.pathname.startsWith(to)?'secondary':'ghost'} className="justify-start" asChild><Link to={to}><Icon size={17}/>{label}</Link></Button>)}<Button variant="ghost" className="justify-start" onClick={logout}><LogOut size={17}/>Logout</Button></nav></aside><div className="min-w-0"><header className="admin-topbar"><span className="break-all text-sm text-muted-foreground">{email}</span><Button variant="outline" size="sm" onClick={logout}><LogOut size={16}/>Logout</Button></header><main className="admin-content"><Outlet/></main></div></div>;
+}
+export function adminHead(title:string){const name=`${title} | JOMOVERSE Admin`;const description=`Private JOMOVERSE team ${title.toLowerCase()}.`;return {meta:[{title:name},{name:'description',content:description},{property:'og:title',content:name},{property:'og:description',content:description},{property:'og:type',content:'website'},{name:'twitter:card',content:'summary'},{name:'robots',content:'noindex, nofollow'}]};}

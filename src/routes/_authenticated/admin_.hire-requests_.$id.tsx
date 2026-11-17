@@ -1,0 +1,5 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { AdminDetail } from '@/components/admin/AdminDetail';
+import { adminHead } from '@/components/admin/AdminShell';
+export const Route=createFileRoute('/_authenticated/admin_/hire-requests_/$id')({head:()=>adminHead('Hire Requests detail'),component:Detail});
+function Detail(){const {id}=Route.useParams();return <AdminDetail table="hire_requests" id={id}/>;}

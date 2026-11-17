@@ -43,6 +43,13 @@
       "when": 1794917706316,
       "tag": "0005_mythic_creator_identities",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794926593423,
+      "tag": "0006_private_admin_panel",
+      "breakpoints": true
     }
   ]
 }

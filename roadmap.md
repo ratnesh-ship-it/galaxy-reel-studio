@@ -15,4 +15,7 @@
 - [x] Accept and safely display flexible links without changing typed values.
 - [x] Add 69 mythic avatars, picker, private-name storage and public identities; portraits are cropped 512px assets, not high-resolution masters.
 - [x] Verify registration, public response privacy, link handling and all pages at 360/390/768/1024/1440/1920px; hide temporary Ravana JV-0007 after QA.
-- [ ] Complete footer Contact destination — waiting for the user's real email address.
+- [ ] Complete footer Contact destination — waiting for the user's public contact email (admin email is not assumed public).
+- [ ] Add private admin login, recovery, invitation and inactivity logout.
+- [ ] Add admin-only registration management, safe deletion, audit log and exports.
+- [ ] Verify admin flows, anonymous privacy and unchanged public pages.

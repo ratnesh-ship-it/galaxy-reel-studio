@@ -10,24 +10,45 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin_'
+import { Route as AdminResetPasswordRouteImport } from './routes/admin_.reset-password'
 import { Route as CreatorsIndexRouteImport } from './routes/creators.index'
 import { Route as CreatorsPublicIdRouteImport } from './routes/creators.$publicId'
+import { Route as AuthenticatedAdminAdminsRouteImport } from './routes/_authenticated/admin_.admins'
+import { Route as AuthenticatedAdminBrandsRouteImport } from './routes/_authenticated/admin_.brands'
+import { Route as AuthenticatedAdminCreatorsRouteImport } from './routes/_authenticated/admin_.creators'
+import { Route as AuthenticatedAdminHireRequestsRouteImport } from './routes/_authenticated/admin_.hire-requests'
+import { Route as AuthenticatedAdminOverviewRouteImport } from './routes/_authenticated/admin_.overview'
+import { Route as AuthenticatedAdminBrandsIdRouteImport } from './routes/_authenticated/admin_.brands_.$id'
+import { Route as AuthenticatedAdminCreatorsIdRouteImport } from './routes/_authenticated/admin_.creators_.$id'
+import { Route as AuthenticatedAdminHireRequestsIdRouteImport } from './routes/_authenticated/admin_.hire-requests_.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -60,6 +81,16 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
   path: '/showcase',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin_',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
+  id: '/admin_/reset-password',
+  path: '/admin/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreatorsIndexRoute = CreatorsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -70,90 +101,205 @@ const CreatorsPublicIdRoute = CreatorsPublicIdRouteImport.update({
   path: '/$publicId',
   getParentRoute: () => CreatorsRoute,
 } as any)
+const AuthenticatedAdminAdminsRoute =
+  AuthenticatedAdminAdminsRouteImport.update({
+    id: '/admins',
+    path: '/admins',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminBrandsRoute =
+  AuthenticatedAdminBrandsRouteImport.update({
+    id: '/brands',
+    path: '/brands',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCreatorsRoute =
+  AuthenticatedAdminCreatorsRouteImport.update({
+    id: '/creators',
+    path: '/creators',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminHireRequestsRoute =
+  AuthenticatedAdminHireRequestsRouteImport.update({
+    id: '/hire-requests',
+    path: '/hire-requests',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminOverviewRoute =
+  AuthenticatedAdminOverviewRouteImport.update({
+    id: '/overview',
+    path: '/overview',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminBrandsIdRoute =
+  AuthenticatedAdminBrandsIdRouteImport.update({
+    id: '/brands_/$id',
+    path: '/brands/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCreatorsIdRoute =
+  AuthenticatedAdminCreatorsIdRouteImport.update({
+    id: '/creators_/$id',
+    path: '/creators/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminHireRequestsIdRoute =
+  AuthenticatedAdminHireRequestsIdRouteImport.update({
+    id: '/hire-requests_/$id',
+    path: '/hire-requests/$id',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators/': typeof CreatorsIndexRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
+  '/admin/brands': typeof AuthenticatedAdminBrandsRoute
+  '/admin/creators': typeof AuthenticatedAdminCreatorsRoute
+  '/admin/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
+  '/admin/overview': typeof AuthenticatedAdminOverviewRoute
+  '/admin/brands/$id': typeof AuthenticatedAdminBrandsIdRoute
+  '/admin/creators/$id': typeof AuthenticatedAdminCreatorsIdRoute
+  '/admin/hire-requests/$id': typeof AuthenticatedAdminHireRequestsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/admin/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators': typeof CreatorsIndexRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
+  '/admin/brands': typeof AuthenticatedAdminBrandsRoute
+  '/admin/creators': typeof AuthenticatedAdminCreatorsRoute
+  '/admin/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
+  '/admin/overview': typeof AuthenticatedAdminOverviewRoute
+  '/admin/brands/$id': typeof AuthenticatedAdminBrandsIdRoute
+  '/admin/creators/$id': typeof AuthenticatedAdminCreatorsIdRoute
+  '/admin/hire-requests/$id': typeof AuthenticatedAdminHireRequestsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRouteWithChildren
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
+  '/_authenticated/admin_': typeof AuthenticatedAdminRouteWithChildren
+  '/admin_/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators/': typeof CreatorsIndexRoute
+  '/_authenticated/admin_/admins': typeof AuthenticatedAdminAdminsRoute
+  '/_authenticated/admin_/brands': typeof AuthenticatedAdminBrandsRoute
+  '/_authenticated/admin_/creators': typeof AuthenticatedAdminCreatorsRoute
+  '/_authenticated/admin_/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
+  '/_authenticated/admin_/overview': typeof AuthenticatedAdminOverviewRoute
+  '/_authenticated/admin_/brands_/$id': typeof AuthenticatedAdminBrandsIdRoute
+  '/_authenticated/admin_/creators_/$id': typeof AuthenticatedAdminCreatorsIdRoute
+  '/_authenticated/admin_/hire-requests_/$id': typeof AuthenticatedAdminHireRequestsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/brands'
     | '/community'
     | '/creators'
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/admin/reset-password'
     | '/creators/$publicId'
     | '/creators/'
+    | '/admin/admins'
+    | '/admin/brands'
+    | '/admin/creators'
+    | '/admin/hire-requests'
+    | '/admin/overview'
+    | '/admin/brands/$id'
+    | '/admin/creators/$id'
+    | '/admin/hire-requests/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/brands'
     | '/community'
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/admin/reset-password'
     | '/creators/$publicId'
     | '/creators'
+    | '/admin/admins'
+    | '/admin/brands'
+    | '/admin/creators'
+    | '/admin/hire-requests'
+    | '/admin/overview'
+    | '/admin/brands/$id'
+    | '/admin/creators/$id'
+    | '/admin/hire-requests/$id'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/admin'
     | '/brands'
     | '/community'
     | '/creators'
     | '/discover'
     | '/join'
     | '/showcase'
+    | '/_authenticated/admin_'
+    | '/admin_/reset-password'
     | '/creators/$publicId'
     | '/creators/'
+    | '/_authenticated/admin_/admins'
+    | '/_authenticated/admin_/brands'
+    | '/_authenticated/admin_/creators'
+    | '/_authenticated/admin_/hire-requests'
+    | '/_authenticated/admin_/overview'
+    | '/_authenticated/admin_/brands_/$id'
+    | '/_authenticated/admin_/creators_/$id'
+    | '/_authenticated/admin_/hire-requests_/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   BrandsRoute: typeof BrandsRoute
   CommunityRoute: typeof CommunityRoute
   CreatorsRoute: typeof CreatorsRouteWithChildren
   DiscoverRoute: typeof DiscoverRoute
   JoinRoute: typeof JoinRoute
   ShowcaseRoute: typeof ShowcaseRoute
+  AdminResetPasswordRoute: typeof AdminResetPasswordRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,11 +311,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -214,6 +374,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin_': {
+      id: '/_authenticated/admin_'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/admin_/reset-password': {
+      id: '/admin_/reset-password'
+      path: '/admin/reset-password'
+      fullPath: '/admin/reset-password'
+      preLoaderRoute: typeof AdminResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/creators/': {
       id: '/creators/'
       path: '/'
@@ -228,8 +402,100 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorsPublicIdRouteImport
       parentRoute: typeof CreatorsRoute
     }
+    '/_authenticated/admin_/admins': {
+      id: '/_authenticated/admin_/admins'
+      path: '/admins'
+      fullPath: '/admin/admins'
+      preLoaderRoute: typeof AuthenticatedAdminAdminsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/brands': {
+      id: '/_authenticated/admin_/brands'
+      path: '/brands'
+      fullPath: '/admin/brands'
+      preLoaderRoute: typeof AuthenticatedAdminBrandsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/creators': {
+      id: '/_authenticated/admin_/creators'
+      path: '/creators'
+      fullPath: '/admin/creators'
+      preLoaderRoute: typeof AuthenticatedAdminCreatorsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/hire-requests': {
+      id: '/_authenticated/admin_/hire-requests'
+      path: '/hire-requests'
+      fullPath: '/admin/hire-requests'
+      preLoaderRoute: typeof AuthenticatedAdminHireRequestsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/overview': {
+      id: '/_authenticated/admin_/overview'
+      path: '/overview'
+      fullPath: '/admin/overview'
+      preLoaderRoute: typeof AuthenticatedAdminOverviewRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/brands_/$id': {
+      id: '/_authenticated/admin_/brands_/$id'
+      path: '/brands/$id'
+      fullPath: '/admin/brands/$id'
+      preLoaderRoute: typeof AuthenticatedAdminBrandsIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/creators_/$id': {
+      id: '/_authenticated/admin_/creators_/$id'
+      path: '/creators/$id'
+      fullPath: '/admin/creators/$id'
+      preLoaderRoute: typeof AuthenticatedAdminCreatorsIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin_/hire-requests_/$id': {
+      id: '/_authenticated/admin_/hire-requests_/$id'
+      path: '/hire-requests/$id'
+      fullPath: '/admin/hire-requests/$id'
+      preLoaderRoute: typeof AuthenticatedAdminHireRequestsIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAdminsRoute: typeof AuthenticatedAdminAdminsRoute
+  AuthenticatedAdminBrandsRoute: typeof AuthenticatedAdminBrandsRoute
+  AuthenticatedAdminCreatorsRoute: typeof AuthenticatedAdminCreatorsRoute
+  AuthenticatedAdminHireRequestsRoute: typeof AuthenticatedAdminHireRequestsRoute
+  AuthenticatedAdminOverviewRoute: typeof AuthenticatedAdminOverviewRoute
+  AuthenticatedAdminBrandsIdRoute: typeof AuthenticatedAdminBrandsIdRoute
+  AuthenticatedAdminCreatorsIdRoute: typeof AuthenticatedAdminCreatorsIdRoute
+  AuthenticatedAdminHireRequestsIdRoute: typeof AuthenticatedAdminHireRequestsIdRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAdminsRoute: AuthenticatedAdminAdminsRoute,
+  AuthenticatedAdminBrandsRoute: AuthenticatedAdminBrandsRoute,
+  AuthenticatedAdminCreatorsRoute: AuthenticatedAdminCreatorsRoute,
+  AuthenticatedAdminHireRequestsRoute: AuthenticatedAdminHireRequestsRoute,
+  AuthenticatedAdminOverviewRoute: AuthenticatedAdminOverviewRoute,
+  AuthenticatedAdminBrandsIdRoute: AuthenticatedAdminBrandsIdRoute,
+  AuthenticatedAdminCreatorsIdRoute: AuthenticatedAdminCreatorsIdRoute,
+  AuthenticatedAdminHireRequestsIdRoute: AuthenticatedAdminHireRequestsIdRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface CreatorsRouteChildren {
   CreatorsPublicIdRoute: typeof CreatorsPublicIdRoute
@@ -247,13 +513,16 @@ const CreatorsRouteWithChildren = CreatorsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   BrandsRoute: BrandsRoute,
   CommunityRoute: CommunityRoute,
   CreatorsRoute: CreatorsRouteWithChildren,
   DiscoverRoute: DiscoverRoute,
   JoinRoute: JoinRoute,
   ShowcaseRoute: ShowcaseRoute,
+  AdminResetPasswordRoute: AdminResetPasswordRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_activity: {
+        Row: {
+          action: string
+          admin_email: string
+          created_at: string
+          details: Json
+          id: string
+          target_id: string | null
+          target_type: string
+        }
+        Insert: {
+          action: string
+          admin_email: string
+          created_at?: string
+          details?: Json
+          id?: string
+          target_id?: string | null
+          target_type: string
+        }
+        Update: {
+          action?: string
+          admin_email?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          target_id?: string | null
+          target_type?: string
+        }
+        Relationships: []
+      }
+      admin_users: {
+        Row: {
+          created_at: string
+          email: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       brand_registrations: {
         Row: {
           budget: string | null
@@ -136,6 +187,7 @@ export type Database = {
           id: string
           phone: string
           project_details: string
+          status: string
           website: string | null
         }
         Insert: {
@@ -148,6 +200,7 @@ export type Database = {
           id?: string
           phone: string
           project_details: string
+          status?: string
           website?: string | null
         }
         Update: {
@@ -160,6 +213,7 @@ export type Database = {
           id?: string
           phone?: string
           project_details?: string
+          status?: string
           website?: string | null
         }
         Relationships: [
@@ -248,6 +302,7 @@ export type Database = {
     Functions: {
       avatar_identity: { Args: { slug: string }; Returns: Json }
       creator_launch_id: { Args: { launch_code: string }; Returns: string }
+      is_admin: { Args: never; Returns: boolean }
       is_jv_admin: { Args: never; Returns: boolean }
     }
     Enums: {

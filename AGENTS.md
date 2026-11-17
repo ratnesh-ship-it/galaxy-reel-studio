@@ -49,3 +49,5 @@ use the editor.
 - Overlay layers are portalled above page stacking contexts; menu locks html/body scroll and closes on Escape, navigation, or link taps.
 
 - Public creator realtime subscriptions invalidate the shared directory query, with periodic refetch as a reconnect fallback so counts and cards recover from missed events.
+- Admin pages use a separate shell under a session-and-membership route gate; every private operation is independently enforced by RLS or an authenticated server check.
+- Admin membership references user UUIDs without managed-schema foreign keys; only privileged invitation handlers manage membership, while database triggers audit private record mutations and remove deleted public profiles atomically.

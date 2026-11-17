@@ -18,6 +18,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -139,17 +140,19 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  const isAdmin = pathname === '/admin' || pathname.startsWith('/admin/');
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <MissionProvider><div className="relative min-h-screen overflow-x-clip">
+      {isAdmin ? <Outlet /> : <MissionProvider><div className="relative min-h-screen overflow-x-clip">
         <SpaceBackdrop />
         <SiteHeader />
         <main className="relative z-10 pt-16 md:pt-[72px]"><Outlet /></main>
         <SiteFooter />
       </div>
-      </MissionProvider><Toaster />
+      </MissionProvider>}<Toaster />
     </QueryClientProvider>
   );
 }
