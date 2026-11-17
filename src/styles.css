@@ -190,7 +190,7 @@ html * { font-style: normal; }
 .admin-content { padding:32px; max-width:1600px; margin-inline:auto; }
 .admin-login { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 24px; background:var(--background); }
 .admin-table-wrap { overflow-x:auto; border-block:1px solid var(--border); }
-.admin-table { width:100%; border-collapse:collapse; font-size:14px; }
+.admin-table { width:100%; min-width:640px; border-collapse:collapse; font-size:14px; }
 .admin-table th { text-align:left; font-weight:500; color:var(--muted-foreground); white-space:nowrap; background:var(--card); }
 .admin-table th,.admin-table td { padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:middle; }
 .admin-table td { max-width:300px; min-width:110px; overflow-wrap:anywhere; }
