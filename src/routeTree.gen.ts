@@ -19,18 +19,18 @@ import { Route as CreatorsRouteImport } from './routes/creators'
 import { Route as DiscoverRouteImport } from './routes/discover'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as ShowcaseRouteImport } from './routes/showcase'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin_'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/_admin'
 import { Route as AdminResetPasswordRouteImport } from './routes/admin_.reset-password'
 import { Route as CreatorsIndexRouteImport } from './routes/creators.index'
 import { Route as CreatorsPublicIdRouteImport } from './routes/creators.$publicId'
-import { Route as AuthenticatedAdminAdminsRouteImport } from './routes/_authenticated/admin_.admins'
-import { Route as AuthenticatedAdminBrandsRouteImport } from './routes/_authenticated/admin_.brands'
-import { Route as AuthenticatedAdminCreatorsRouteImport } from './routes/_authenticated/admin_.creators'
-import { Route as AuthenticatedAdminHireRequestsRouteImport } from './routes/_authenticated/admin_.hire-requests'
-import { Route as AuthenticatedAdminOverviewRouteImport } from './routes/_authenticated/admin_.overview'
-import { Route as AuthenticatedAdminBrandsIdRouteImport } from './routes/_authenticated/admin_.brands_.$id'
-import { Route as AuthenticatedAdminCreatorsIdRouteImport } from './routes/_authenticated/admin_.creators_.$id'
-import { Route as AuthenticatedAdminHireRequestsIdRouteImport } from './routes/_authenticated/admin_.hire-requests_.$id'
+import { Route as AuthenticatedAdminAdminAdminsRouteImport } from './routes/_authenticated/_admin.admin_.admins'
+import { Route as AuthenticatedAdminAdminBrandsRouteImport } from './routes/_authenticated/_admin.admin_.brands'
+import { Route as AuthenticatedAdminAdminCreatorsRouteImport } from './routes/_authenticated/_admin.admin_.creators'
+import { Route as AuthenticatedAdminAdminHireRequestsRouteImport } from './routes/_authenticated/_admin.admin_.hire-requests'
+import { Route as AuthenticatedAdminAdminOverviewRouteImport } from './routes/_authenticated/_admin.admin_.overview'
+import { Route as AuthenticatedAdminAdminBrandsIdRouteImport } from './routes/_authenticated/_admin.admin_.brands_.$id'
+import { Route as AuthenticatedAdminAdminCreatorsIdRouteImport } from './routes/_authenticated/_admin.admin_.creators_.$id'
+import { Route as AuthenticatedAdminAdminHireRequestsIdRouteImport } from './routes/_authenticated/_admin.admin_.hire-requests_.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -82,8 +82,7 @@ const ShowcaseRoute = ShowcaseRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin_',
-  path: '/admin',
+  id: '/_admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AdminResetPasswordRoute = AdminResetPasswordRouteImport.update({
@@ -101,59 +100,59 @@ const CreatorsPublicIdRoute = CreatorsPublicIdRouteImport.update({
   path: '/$publicId',
   getParentRoute: () => CreatorsRoute,
 } as any)
-const AuthenticatedAdminAdminsRoute =
-  AuthenticatedAdminAdminsRouteImport.update({
-    id: '/admins',
-    path: '/admins',
+const AuthenticatedAdminAdminAdminsRoute =
+  AuthenticatedAdminAdminAdminsRouteImport.update({
+    id: '/admin_/admins',
+    path: '/admin/admins',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminBrandsRoute =
-  AuthenticatedAdminBrandsRouteImport.update({
-    id: '/brands',
-    path: '/brands',
+const AuthenticatedAdminAdminBrandsRoute =
+  AuthenticatedAdminAdminBrandsRouteImport.update({
+    id: '/admin_/brands',
+    path: '/admin/brands',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminCreatorsRoute =
-  AuthenticatedAdminCreatorsRouteImport.update({
-    id: '/creators',
-    path: '/creators',
+const AuthenticatedAdminAdminCreatorsRoute =
+  AuthenticatedAdminAdminCreatorsRouteImport.update({
+    id: '/admin_/creators',
+    path: '/admin/creators',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminHireRequestsRoute =
-  AuthenticatedAdminHireRequestsRouteImport.update({
-    id: '/hire-requests',
-    path: '/hire-requests',
+const AuthenticatedAdminAdminHireRequestsRoute =
+  AuthenticatedAdminAdminHireRequestsRouteImport.update({
+    id: '/admin_/hire-requests',
+    path: '/admin/hire-requests',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminOverviewRoute =
-  AuthenticatedAdminOverviewRouteImport.update({
-    id: '/overview',
-    path: '/overview',
+const AuthenticatedAdminAdminOverviewRoute =
+  AuthenticatedAdminAdminOverviewRouteImport.update({
+    id: '/admin_/overview',
+    path: '/admin/overview',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminBrandsIdRoute =
-  AuthenticatedAdminBrandsIdRouteImport.update({
-    id: '/brands_/$id',
-    path: '/brands/$id',
+const AuthenticatedAdminAdminBrandsIdRoute =
+  AuthenticatedAdminAdminBrandsIdRouteImport.update({
+    id: '/admin_/brands_/$id',
+    path: '/admin/brands/$id',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminCreatorsIdRoute =
-  AuthenticatedAdminCreatorsIdRouteImport.update({
-    id: '/creators_/$id',
-    path: '/creators/$id',
+const AuthenticatedAdminAdminCreatorsIdRoute =
+  AuthenticatedAdminAdminCreatorsIdRouteImport.update({
+    id: '/admin_/creators_/$id',
+    path: '/admin/creators/$id',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
-const AuthenticatedAdminHireRequestsIdRoute =
-  AuthenticatedAdminHireRequestsIdRouteImport.update({
-    id: '/hire-requests_/$id',
-    path: '/hire-requests/$id',
+const AuthenticatedAdminAdminHireRequestsIdRoute =
+  AuthenticatedAdminAdminHireRequestsIdRouteImport.update({
+    id: '/admin_/hire-requests_/$id',
+    path: '/admin/hire-requests/$id',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin': typeof AdminRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/creators': typeof CreatorsRouteWithChildren
@@ -163,19 +162,19 @@ export interface FileRoutesByFullPath {
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators/': typeof CreatorsIndexRoute
-  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
-  '/admin/brands': typeof AuthenticatedAdminBrandsRoute
-  '/admin/creators': typeof AuthenticatedAdminCreatorsRoute
-  '/admin/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
-  '/admin/overview': typeof AuthenticatedAdminOverviewRoute
-  '/admin/brands/$id': typeof AuthenticatedAdminBrandsIdRoute
-  '/admin/creators/$id': typeof AuthenticatedAdminCreatorsIdRoute
-  '/admin/hire-requests/$id': typeof AuthenticatedAdminHireRequestsIdRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminAdminsRoute
+  '/admin/brands': typeof AuthenticatedAdminAdminBrandsRoute
+  '/admin/creators': typeof AuthenticatedAdminAdminCreatorsRoute
+  '/admin/hire-requests': typeof AuthenticatedAdminAdminHireRequestsRoute
+  '/admin/overview': typeof AuthenticatedAdminAdminOverviewRoute
+  '/admin/brands/$id': typeof AuthenticatedAdminAdminBrandsIdRoute
+  '/admin/creators/$id': typeof AuthenticatedAdminAdminCreatorsIdRoute
+  '/admin/hire-requests/$id': typeof AuthenticatedAdminAdminHireRequestsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/admin': typeof AdminRoute
   '/brands': typeof BrandsRoute
   '/community': typeof CommunityRoute
   '/discover': typeof DiscoverRoute
@@ -184,14 +183,14 @@ export interface FileRoutesByTo {
   '/admin/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators': typeof CreatorsIndexRoute
-  '/admin/admins': typeof AuthenticatedAdminAdminsRoute
-  '/admin/brands': typeof AuthenticatedAdminBrandsRoute
-  '/admin/creators': typeof AuthenticatedAdminCreatorsRoute
-  '/admin/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
-  '/admin/overview': typeof AuthenticatedAdminOverviewRoute
-  '/admin/brands/$id': typeof AuthenticatedAdminBrandsIdRoute
-  '/admin/creators/$id': typeof AuthenticatedAdminCreatorsIdRoute
-  '/admin/hire-requests/$id': typeof AuthenticatedAdminHireRequestsIdRoute
+  '/admin/admins': typeof AuthenticatedAdminAdminAdminsRoute
+  '/admin/brands': typeof AuthenticatedAdminAdminBrandsRoute
+  '/admin/creators': typeof AuthenticatedAdminAdminCreatorsRoute
+  '/admin/hire-requests': typeof AuthenticatedAdminAdminHireRequestsRoute
+  '/admin/overview': typeof AuthenticatedAdminAdminOverviewRoute
+  '/admin/brands/$id': typeof AuthenticatedAdminAdminBrandsIdRoute
+  '/admin/creators/$id': typeof AuthenticatedAdminAdminCreatorsIdRoute
+  '/admin/hire-requests/$id': typeof AuthenticatedAdminAdminHireRequestsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -205,18 +204,18 @@ export interface FileRoutesById {
   '/discover': typeof DiscoverRoute
   '/join': typeof JoinRoute
   '/showcase': typeof ShowcaseRoute
-  '/_authenticated/admin_': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/_admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin_/reset-password': typeof AdminResetPasswordRoute
   '/creators/$publicId': typeof CreatorsPublicIdRoute
   '/creators/': typeof CreatorsIndexRoute
-  '/_authenticated/admin_/admins': typeof AuthenticatedAdminAdminsRoute
-  '/_authenticated/admin_/brands': typeof AuthenticatedAdminBrandsRoute
-  '/_authenticated/admin_/creators': typeof AuthenticatedAdminCreatorsRoute
-  '/_authenticated/admin_/hire-requests': typeof AuthenticatedAdminHireRequestsRoute
-  '/_authenticated/admin_/overview': typeof AuthenticatedAdminOverviewRoute
-  '/_authenticated/admin_/brands_/$id': typeof AuthenticatedAdminBrandsIdRoute
-  '/_authenticated/admin_/creators_/$id': typeof AuthenticatedAdminCreatorsIdRoute
-  '/_authenticated/admin_/hire-requests_/$id': typeof AuthenticatedAdminHireRequestsIdRoute
+  '/_authenticated/_admin/admin_/admins': typeof AuthenticatedAdminAdminAdminsRoute
+  '/_authenticated/_admin/admin_/brands': typeof AuthenticatedAdminAdminBrandsRoute
+  '/_authenticated/_admin/admin_/creators': typeof AuthenticatedAdminAdminCreatorsRoute
+  '/_authenticated/_admin/admin_/hire-requests': typeof AuthenticatedAdminAdminHireRequestsRoute
+  '/_authenticated/_admin/admin_/overview': typeof AuthenticatedAdminAdminOverviewRoute
+  '/_authenticated/_admin/admin_/brands_/$id': typeof AuthenticatedAdminAdminBrandsIdRoute
+  '/_authenticated/_admin/admin_/creators_/$id': typeof AuthenticatedAdminAdminCreatorsIdRoute
+  '/_authenticated/_admin/admin_/hire-requests_/$id': typeof AuthenticatedAdminAdminHireRequestsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -274,18 +273,18 @@ export interface FileRouteTypes {
     | '/discover'
     | '/join'
     | '/showcase'
-    | '/_authenticated/admin_'
+    | '/_authenticated/_admin'
     | '/admin_/reset-password'
     | '/creators/$publicId'
     | '/creators/'
-    | '/_authenticated/admin_/admins'
-    | '/_authenticated/admin_/brands'
-    | '/_authenticated/admin_/creators'
-    | '/_authenticated/admin_/hire-requests'
-    | '/_authenticated/admin_/overview'
-    | '/_authenticated/admin_/brands_/$id'
-    | '/_authenticated/admin_/creators_/$id'
-    | '/_authenticated/admin_/hire-requests_/$id'
+    | '/_authenticated/_admin/admin_/admins'
+    | '/_authenticated/_admin/admin_/brands'
+    | '/_authenticated/_admin/admin_/creators'
+    | '/_authenticated/_admin/admin_/hire-requests'
+    | '/_authenticated/_admin/admin_/overview'
+    | '/_authenticated/_admin/admin_/brands_/$id'
+    | '/_authenticated/_admin/admin_/creators_/$id'
+    | '/_authenticated/_admin/admin_/hire-requests_/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -374,10 +373,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShowcaseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin_': {
-      id: '/_authenticated/admin_'
-      path: '/admin'
-      fullPath: '/admin'
+    '/_authenticated/_admin': {
+      id: '/_authenticated/_admin'
+      path: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
@@ -402,85 +401,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreatorsPublicIdRouteImport
       parentRoute: typeof CreatorsRoute
     }
-    '/_authenticated/admin_/admins': {
-      id: '/_authenticated/admin_/admins'
-      path: '/admins'
+    '/_authenticated/_admin/admin_/admins': {
+      id: '/_authenticated/_admin/admin_/admins'
+      path: '/admin/admins'
       fullPath: '/admin/admins'
-      preLoaderRoute: typeof AuthenticatedAdminAdminsRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminAdminsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/brands': {
-      id: '/_authenticated/admin_/brands'
-      path: '/brands'
+    '/_authenticated/_admin/admin_/brands': {
+      id: '/_authenticated/_admin/admin_/brands'
+      path: '/admin/brands'
       fullPath: '/admin/brands'
-      preLoaderRoute: typeof AuthenticatedAdminBrandsRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminBrandsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/creators': {
-      id: '/_authenticated/admin_/creators'
-      path: '/creators'
+    '/_authenticated/_admin/admin_/creators': {
+      id: '/_authenticated/_admin/admin_/creators'
+      path: '/admin/creators'
       fullPath: '/admin/creators'
-      preLoaderRoute: typeof AuthenticatedAdminCreatorsRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminCreatorsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/hire-requests': {
-      id: '/_authenticated/admin_/hire-requests'
-      path: '/hire-requests'
+    '/_authenticated/_admin/admin_/hire-requests': {
+      id: '/_authenticated/_admin/admin_/hire-requests'
+      path: '/admin/hire-requests'
       fullPath: '/admin/hire-requests'
-      preLoaderRoute: typeof AuthenticatedAdminHireRequestsRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminHireRequestsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/overview': {
-      id: '/_authenticated/admin_/overview'
-      path: '/overview'
+    '/_authenticated/_admin/admin_/overview': {
+      id: '/_authenticated/_admin/admin_/overview'
+      path: '/admin/overview'
       fullPath: '/admin/overview'
-      preLoaderRoute: typeof AuthenticatedAdminOverviewRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminOverviewRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/brands_/$id': {
-      id: '/_authenticated/admin_/brands_/$id'
-      path: '/brands/$id'
+    '/_authenticated/_admin/admin_/brands_/$id': {
+      id: '/_authenticated/_admin/admin_/brands_/$id'
+      path: '/admin/brands/$id'
       fullPath: '/admin/brands/$id'
-      preLoaderRoute: typeof AuthenticatedAdminBrandsIdRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminBrandsIdRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/creators_/$id': {
-      id: '/_authenticated/admin_/creators_/$id'
-      path: '/creators/$id'
+    '/_authenticated/_admin/admin_/creators_/$id': {
+      id: '/_authenticated/_admin/admin_/creators_/$id'
+      path: '/admin/creators/$id'
       fullPath: '/admin/creators/$id'
-      preLoaderRoute: typeof AuthenticatedAdminCreatorsIdRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminCreatorsIdRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
-    '/_authenticated/admin_/hire-requests_/$id': {
-      id: '/_authenticated/admin_/hire-requests_/$id'
-      path: '/hire-requests/$id'
+    '/_authenticated/_admin/admin_/hire-requests_/$id': {
+      id: '/_authenticated/_admin/admin_/hire-requests_/$id'
+      path: '/admin/hire-requests/$id'
       fullPath: '/admin/hire-requests/$id'
-      preLoaderRoute: typeof AuthenticatedAdminHireRequestsIdRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAdminHireRequestsIdRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
   }
 }
 
 interface AuthenticatedAdminRouteChildren {
-  AuthenticatedAdminAdminsRoute: typeof AuthenticatedAdminAdminsRoute
-  AuthenticatedAdminBrandsRoute: typeof AuthenticatedAdminBrandsRoute
-  AuthenticatedAdminCreatorsRoute: typeof AuthenticatedAdminCreatorsRoute
-  AuthenticatedAdminHireRequestsRoute: typeof AuthenticatedAdminHireRequestsRoute
-  AuthenticatedAdminOverviewRoute: typeof AuthenticatedAdminOverviewRoute
-  AuthenticatedAdminBrandsIdRoute: typeof AuthenticatedAdminBrandsIdRoute
-  AuthenticatedAdminCreatorsIdRoute: typeof AuthenticatedAdminCreatorsIdRoute
-  AuthenticatedAdminHireRequestsIdRoute: typeof AuthenticatedAdminHireRequestsIdRoute
+  AuthenticatedAdminAdminAdminsRoute: typeof AuthenticatedAdminAdminAdminsRoute
+  AuthenticatedAdminAdminBrandsRoute: typeof AuthenticatedAdminAdminBrandsRoute
+  AuthenticatedAdminAdminCreatorsRoute: typeof AuthenticatedAdminAdminCreatorsRoute
+  AuthenticatedAdminAdminHireRequestsRoute: typeof AuthenticatedAdminAdminHireRequestsRoute
+  AuthenticatedAdminAdminOverviewRoute: typeof AuthenticatedAdminAdminOverviewRoute
+  AuthenticatedAdminAdminBrandsIdRoute: typeof AuthenticatedAdminAdminBrandsIdRoute
+  AuthenticatedAdminAdminCreatorsIdRoute: typeof AuthenticatedAdminAdminCreatorsIdRoute
+  AuthenticatedAdminAdminHireRequestsIdRoute: typeof AuthenticatedAdminAdminHireRequestsIdRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminAdminsRoute: AuthenticatedAdminAdminsRoute,
-  AuthenticatedAdminBrandsRoute: AuthenticatedAdminBrandsRoute,
-  AuthenticatedAdminCreatorsRoute: AuthenticatedAdminCreatorsRoute,
-  AuthenticatedAdminHireRequestsRoute: AuthenticatedAdminHireRequestsRoute,
-  AuthenticatedAdminOverviewRoute: AuthenticatedAdminOverviewRoute,
-  AuthenticatedAdminBrandsIdRoute: AuthenticatedAdminBrandsIdRoute,
-  AuthenticatedAdminCreatorsIdRoute: AuthenticatedAdminCreatorsIdRoute,
-  AuthenticatedAdminHireRequestsIdRoute: AuthenticatedAdminHireRequestsIdRoute,
+  AuthenticatedAdminAdminAdminsRoute: AuthenticatedAdminAdminAdminsRoute,
+  AuthenticatedAdminAdminBrandsRoute: AuthenticatedAdminAdminBrandsRoute,
+  AuthenticatedAdminAdminCreatorsRoute: AuthenticatedAdminAdminCreatorsRoute,
+  AuthenticatedAdminAdminHireRequestsRoute:
+    AuthenticatedAdminAdminHireRequestsRoute,
+  AuthenticatedAdminAdminOverviewRoute: AuthenticatedAdminAdminOverviewRoute,
+  AuthenticatedAdminAdminBrandsIdRoute: AuthenticatedAdminAdminBrandsIdRoute,
+  AuthenticatedAdminAdminCreatorsIdRoute:
+    AuthenticatedAdminAdminCreatorsIdRoute,
+  AuthenticatedAdminAdminHireRequestsIdRoute:
+    AuthenticatedAdminAdminHireRequestsIdRoute,
 }
 
 const AuthenticatedAdminRouteWithChildren =
