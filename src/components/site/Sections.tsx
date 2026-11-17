@@ -79,7 +79,7 @@ export function JoinSection() {
   ];
   return (
     <Section>
-      <SectionHead n="01" label="Join" lines={["Two Worlds"]} />
+      <SectionHead n="01" label="Join" lines={["Choose Your Orbit"]} intro="Hire AI talent for your brand, or get hired as an AI creator" />
       <div className="mt-20 grid border-t border-hairline md:grid-cols-2">
         {panels.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.1} className={`py-12 md:py-16 ${i === 0 ? "md:pr-14 md:border-r md:border-hairline" : "md:pl-14 border-t border-hairline md:border-t-0"}`}>
@@ -118,10 +118,10 @@ export function UniverseSection() {
 
 export function ProcessSection() {
   const steps = [
-    ["01", "Discover", "Explore a universe of AI Creators, Filmmakers and creative specialists."],
-    ["02", "Connect", "Share your ideas, post projects and connect with the right creative talent."],
-    ["03", "Collaborate", "Work together to transform concepts into extraordinary creative experiences."],
-    ["04", "Create & Grow", "Launch campaigns, build portfolios, secure projects and grow your creative journey."],
+    ["01", "Discover", "Explore AI filmmakers, creators and creative specialists"],
+    ["02", "Connect", "Share your idea or brief and match with the right talent"],
+    ["03", "Collaborate", "Work together to turn concepts into cinematic content"],
+    ["04", "Create & Grow", "Launch campaigns, build portfolios and grow together"],
   ];
   return (
     <Section>
@@ -138,6 +138,7 @@ export function ProcessSection() {
               <li className="pl-14 md:pl-0">
                 <svg viewBox="0 0 180 125" className="h-[72px] w-[104px] md:h-[120px] md:w-[173px]" role="img" aria-label={n}><defs><linearGradient id={`step-teal-${n}`}><stop stopColor="var(--brand-teal)" /><stop offset="1" stopColor="var(--brand-teal-bright)" /></linearGradient></defs><text x="0" y="110" fill="none" stroke={`url(#step-teal-${n})`} strokeWidth="1" className="font-display" fontSize="120">{n}</text></svg>
                 <h3 className="font-display mt-6 text-3xl">{t}</h3>
+                <p className="mt-3 max-w-[280px] font-sans text-[17px] font-normal text-muted-foreground">{d}</p>
               </li>
             </Reveal>
           ))}
