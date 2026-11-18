@@ -1,9 +1,11 @@
 import { queryOptions } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-export const publicCreatorFields = 'public_id,creator_number,avatar_slug,avatar_name,avatar_category,city_country,primary_speciality,ai_tools,experience_level,portfolio_link,created_at' as const;
-export type PublicCreator = { public_id:string; creator_number:number; avatar_slug:string; avatar_name:string; avatar_category:string; city_country:string|null; primary_speciality:string|null; ai_tools:string[]; experience_level:string|null; portfolio_link:string|null; created_at:string };
-export const creatorsQuery = queryOptions({ queryKey:['public-creators'], refetchInterval:15000, refetchOnWindowFocus:true, queryFn:async():Promise<PublicCreator[]> => {
+export const publicCreatorFields = 'public_id,creator_number,avatar_slug,avatar_name,avatar_category,city_country,primary_speciality,ai_tools,experience_level,created_at' as const;
+export type PublicCreator = { public_id:string; creator_number:number; avatar_slug:string; avatar_name:string; avatar_category:string; city_country:string|null; primary_speciality:string|null; ai_tools:string[]; experience_level:string|null; portfolio_link?:string|null; created_at:string };
+export const creatorsQuery = queryOptions({ queryKey:['public-creators'], refetchInterval:60000, staleTime:30000, refetchOnWindowFocus:true, queryFn:async():Promise<PublicCreator[]> => {
  const isServer = typeof window === 'undefined';
+ // On Vercel the server can't reach the database, so don't wait for it: the browser loads creators instead.
+ if (isServer && typeof process !== 'undefined' && process.env['VERCEL']) return [];
  try {
   const {data,error}=await supabase.from('public_creators').select(publicCreatorFields).order('creator_number');
   if(error) throw error;
