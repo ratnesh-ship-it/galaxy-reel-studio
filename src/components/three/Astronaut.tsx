@@ -15,10 +15,10 @@ const MODEL_URL =
 
 // If the 3D model can't load, show nothing instead of crashing the whole page.
 class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
+  override state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(error: unknown) { console.warn("[JOMOVERSE] Astronaut model failed to load; hiding it.", error); }
-  render() { return this.state.failed ? null : this.props.children; }
+  override componentDidCatch(error: unknown) { console.warn("[JOMOVERSE] Astronaut model failed to load; hiding it.", error); }
+  override render() { return this.state.failed ? null : this.props.children; }
 }
 
 function Model({ scrollRef }: { scrollRef: MutableRefObject<number> }) {
