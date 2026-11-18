@@ -80,6 +80,14 @@ export function JoinSection() {
   return (
     <Section>
       <SectionHead n="01" label="Join" lines={["Choose Your Orbit"]} intro="Hire AI talent for your brand, or get hired as an AI creator" />
+      <div className="mt-12 grid grid-cols-2 gap-6 md:max-w-xl">
+        {[["100+", "Brands onboarded"], ["400+", "AI creators"]].map(([value, label]) => (
+          <div key={label} className="rounded-md border border-hairline bg-card px-6 py-5">
+            <p className="text-4xl md:text-5xl font-semibold text-brand-teal-bright">{value}</p>
+            <p className="mt-2 text-sm uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
+          </div>
+        ))}
+      </div>
       <div className="mt-20 grid border-t border-hairline md:grid-cols-2">
         {panels.map((p, i) => (
           <Reveal key={p.t} delay={i * 0.1} className={`py-12 md:py-16 ${i === 0 ? "md:pr-14 md:border-r md:border-hairline" : "md:pl-14 border-t border-hairline md:border-t-0"}`}>
