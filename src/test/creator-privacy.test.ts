@@ -3,7 +3,7 @@ import { publicCreatorFields, portfolioEmbed, safePortfolio, latestCreators, typ
 import { hireSchema } from '@/lib/hiring';
 describe('Public creator safety',()=>{
  it('shows exactly the latest eight creators in descending ID order',()=>{const rows=Array.from({length:12},(_,i)=>({creator_number:i+1,public_id:`JV-${String(i+1).padStart(4,'0')}`} as PublicCreator));expect(latestCreators(rows).map(c=>c.public_id)).toEqual(['JV-0012','JV-0011','JV-0010','JV-0009','JV-0008','JV-0007','JV-0006','JV-0005']);expect(rows[0]?.creator_number).toBe(1);});
- it('projects exactly the eleven approved avatar fields',()=>expect(publicCreatorFields.split(',')).toEqual(['public_id','creator_number','avatar_slug','avatar_name','avatar_category','city_country','primary_speciality','ai_tools','experience_level','portfolio_link','created_at']));
+ it('projects exactly the ten approved avatar fields (no portfolio link)',()=>expect(publicCreatorFields.split(',')).toEqual(['public_id','creator_number','avatar_slug','avatar_name','avatar_category','city_country','primary_speciality','ai_tools','experience_level','created_at']));
  it('never projects phone or email',()=>{expect(publicCreatorFields.split(',')).not.toContain('email');expect(publicCreatorFields.split(',')).not.toContain('phone');});
  it('rejects unsafe links and preserves full URLs',()=>{expect(safePortfolio('javascript:alert(1)')).toBeNull();expect(safePortfolio('https://example.com')).toBe('https://example.com');});
  it('links bare domains and Instagram handles, leaving plain text unlinked',()=>{expect(safePortfolio('weclickai.com')).toBe('https://weclickai.com');expect(safePortfolio('@name')).toBe('https://instagram.com/name');expect(safePortfolio('anything')).toBeNull();});
