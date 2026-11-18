@@ -1,34 +1,26 @@
-import { queryOptions } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-export const publicCreatorFields = 'public_id,creator_number,avatar_slug,avatar_name,avatar_category,city_country,primary_speciality,ai_tools,experience_level,created_at' as const;
-export type PublicCreator = { public_id:string; creator_number:number; avatar_slug:string; avatar_name:string; avatar_category:string; city_country:string|null; primary_speciality:string|null; ai_tools:string[]; experience_level:string|null; portfolio_link?:string|null; created_at:string };
-export const creatorsQuery = queryOptions({ queryKey:['public-creators'], refetchInterval:60000, staleTime:30000, refetchOnWindowFocus:true, queryFn:async():Promise<PublicCreator[]> => {
- const isServer = typeof window === 'undefined';
- // On Vercel the server can't reach the database, so don't wait for it: the browser loads creators instead.
- if (isServer && typeof process !== 'undefined' && process.env['VERCEL']) return [];
- try {
-  const {data,error}=await supabase.from('public_creators').select(publicCreatorFields).order('creator_number');
-  if(error) throw error;
-  return data ?? [];
- } catch (err) {
-  // Some hosts (e.g. Vercel) can't reach the backend from the server. Never crash the page:
-  // render with an empty list on the server and let the browser load the real creators on mount.
-  if (isServer) { console.error('[JOMOVERSE] Creators could not load during server render; the browser will retry.', err); return []; }
-  throw new Error('The creators could not load. Please try again.');
- }
-}});
-export function safePortfolio(value:string|null) {
- if(!value) return null;
- if(/^https?:\/\//i.test(value)) { try { const url=new URL(value); return url.hostname?value:null; } catch{return null;} }
- if(value.startsWith('@')) return `https://instagram.com/${value.slice(1)}`;
- if(value.includes('.')&&!/[\s:]/.test(value)) { try {const url=new URL(`https://${value}`); return url.hostname?`https://${value}`:null;}catch{return null;} }
- return null;
-}
-export function portfolioEmbed(value:string|null) { const safe=safePortfolio(value); if(!safe)return null; const u=new URL(safe); let id:string|null=null;
- if(['youtube.com','www.youtube.com'].includes(u.hostname)) id=u.searchParams.get('v') ?? (u.pathname.startsWith('/shorts/')?u.pathname.split('/')[2]??null:null);
- if(u.hostname==='youtu.be') id=u.pathname.slice(1);
- if(id&&/^[\w-]{11}$/.test(id))return `https://www.youtube-nocookie.com/embed/${id}`;
- if(['vimeo.com','www.vimeo.com'].includes(u.hostname)&&/^\/\d+$/.test(u.pathname))return `https://player.vimeo.com/video${u.pathname}`;
- return null;
-}
-export function latestCreators(creators:PublicCreator[]) { return [...creators].sort((a,b)=>b.creator_number-a.creator_number).slice(0,8); }
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { creatorsQuery } from '@/lib/creators';
+import { CreatorAvatar } from '@/components/site/CreatorDirectory';
+import { HireCreator } from '@/components/site/HireCreator';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/site/ui';
+export const Route=createFileRoute('/creators/$publicId')({
+ loader:async({context,params})=>{const creators=await context.queryClient.ensureQueryData(creatorsQuery);return {creator:creators.find(c=>c.public_id===params.publicId)??null};},
+ head:({loaderData})=>{const c=loaderData?.creator;const title=c?`${`${c.avatar_name} · ${c.public_id}`}, AI Filmmaker | JOMOVERSE`:'Creator not found | JOMOVERSE';const description=c?`Discover ${`${c.avatar_name} · ${c.public_id}`}, ${c.primary_speciality||'AI Creator'}${c.city_country?` based in ${c.city_country}`:''}. Hire creative talent through JOMOVERSE.`:"This creator isn't in orbit yet.";return {meta:[{title},{name:'description',content:description},{property:'og:title',content:title},{property:'og:description',content:description},{property:'og:type',content:'profile'},{name:'twitter:card',content:'summary_large_image'}]};},component:Profile
+});
+function Profile(){const {publicId}=Route.useParams();const {data}=useSuspenseQuery(creatorsQuery);const c=data.find(v=>v.public_id===publicId);if(!c)return <Container className="py-24"><h1 className="type-section">This creator isn't in orbit yet</h1><Button asChild variant="outline" className="mt-8"><Link to="/discover">Back to creators</Link></Button></Container>;
+ return <Container className="py-16 md:py-24"><Link to="/discover" className="text-brand-teal-bright">← All Creators</Link>
+ <div className="mt-10 grid items-center gap-12 md:grid-cols-[2fr_3fr]">
+  <CreatorAvatar creator={c} large/>
+  <div>
+   <p className="text-sm uppercase tracking-[0.16em] text-muted-foreground">Creator ID</p>
+   <p className="mt-2 text-xl font-semibold text-brand-teal-bright">{c.public_id}</p>
+   <h1 className="type-question mt-6">{c.avatar_name}</h1>
+   <dl className="mt-8 grid gap-6 sm:grid-cols-2">
+    <div><dt className="text-sm uppercase tracking-[0.16em] text-muted-foreground">Location</dt><dd className="mt-2 text-xl">{c.city_country||'—'}</dd></div>
+    <div><dt className="text-sm uppercase tracking-[0.16em] text-muted-foreground">Experience</dt><dd className="mt-2 text-xl">{c.experience_level||'—'}</dd></div>
+   </dl>
+   <div className="cta-actions mt-10 flex flex-col items-start gap-3"><HireCreator publicId={c.public_id} name={`${c.avatar_name} · ${c.public_id}`}/></div>
+  </div>
+ </div></Container>;}
